@@ -14,22 +14,34 @@
     />
   </head>
   <body>
+    <!-- Loading Efect -->
+    <div class="loading"></div>
+
+    <!-- POP UP -->
+    <div class="popup-error"></div>
+
     <!-- Form Register & Login -->
     <div class="login-register">
       <div class="form-login">
         <input type="text" name="nama" placeholder="Nama..." id="inputNamaLogin">
         <input type="password" name="password" placeholder="Password..." id="inputPasswordLogin">
-        <button id="btnLogin">Login</button>
+        <div class="box-btn-form">
+          <button id="btnLogin">Login</button>
+          <button id="pindahDaftar">Form Daftar</button>
+        </div>
       </div>
 
       <div class="form-daftar">
         <input type="text" name="nama" placeholder="Nama..." id="inputNamaDaftar">
-        <input type="password" name="password2" placeholder="Password..." id="inputPasswordDaftar2">
+        <input type="password" name="password2" placeholder="Password..." id="inputPasswordDaftar1">
         <div class="verif">
           <p>Verifikasi password 2 kali</p>
-          <input type="password" name="password1" placeholder="Password..." id="inputPasswordDaftar1">
+          <input type="password" name="password1" placeholder="Password..." id="inputPasswordDaftar2">
         </div>
-        <button id="btnRegister">Daftar</button>
+        <div class="box-btn-form">
+          <button id="btnDaftar">Daftar</button>
+          <button id="pindahLogin">Form Login</button>
+        </div>
       </div>
     </div>
 

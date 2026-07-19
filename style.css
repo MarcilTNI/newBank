@@ -1,4 +1,6 @@
-*,html,body {
+*,
+html,
+body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -13,8 +15,104 @@
   --border-qris: white;
   --box-btn-pilihan: white;
   --color-text-maincontent-top: white;
-
 }
+
+/* Loading Efect */
+.loading {
+  position: absolute;
+  z-index: 1000;
+  top: 10px;
+  width: 100%;
+  height: 100px;
+  border: 1px solid yellow;
+}
+.popup-loading {
+  transform: translateY(-50px);
+  background: transparent;
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  animation: popupLoading 0.5s linear forwards;
+}
+@keyframes popupLoading {
+  to {
+    transform: translateY(0);
+  }
+}
+.load {
+  width: 50px;
+  height: 50px;
+  background: transparent;
+  border-radius: 50%;
+  border-left: 4px solid rgb(1, 110, 17);
+  border-top: 4px solid rgb(1, 110, 17);
+  border-bottom: 4px solid rgb(1, 110, 17);
+  border-right: 4px solid white;
+  animation: putar 1s infinite linear;
+}
+@keyframes putar {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.popup-loading p {
+  background: transparent;
+  color: white;
+}
+
+/* popup */
+.popup-error {
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  height: 100px;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.card {
+  width: 250px;
+  height: 100%;
+  font-size: 1em;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 15px;
+  font-size: 1em;
+  transform: translateY(-120px);
+  animation: popup 0.5s ease forwards;
+}
+@keyframes popup {
+  to {
+    transform: translateY(0);
+  }
+}
+.card h1,
+.card p {
+  background: transparent;
+}
+.error {
+  color: rgb(182, 0, 0);
+  background: salmon;
+  border: 2px solid red;
+}
+.success {
+  color: rgb(18, 251, 18);
+  background: green;
+  border: 2px solid rgb(18, 251, 18);
+}
+
 /* Form Login dan Daftar */
 
 .login-register {
@@ -27,7 +125,7 @@
 }
 
 .form-daftar {
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -35,8 +133,8 @@
   height: 230px;
   background: whitesmoke;
   border-radius: 8px;
-  border: 2px solid gray;
-  box-shadow: 5px 5px 10px rgba(0,0,0,.5);
+  border: 1px solid gray;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
   gap: 15px;
 }
 .form-daftar .verif {
@@ -51,17 +149,28 @@
 .form-daftar p {
   font-size: 10px;
 }
-.form-daftar input{
+.form-daftar input {
   width: 80%;
   height: 35px;
   border-radius: 5px;
   outline: none;
   padding-left: 10px;
   font-size: 16px;
-  border: 2px solid var(--main-bg);
+  border: 1px solid var(--main-bg);
 }
-.form-daftar button {
-  width: 80%;
+
+.form-daftar .box-btn-form,
+.form-login .box-btn-form {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.form-daftar .box-btn-form button,
+.form-login .box-btn-form button {
+  width: 30%;
   height: 33px;
   border-radius: 7px;
   border: 1px solid black;
@@ -69,15 +178,22 @@
   cursor: pointer;
   font-weight: bold;
   font-size: 16px;
-  transition: all .3s ease-out;
+  transition: all 0.3s ease-out;
 }
-.form-daftar button:hover {
-  transform: scale(.98);
-  box-shadow: 3px 5px 8px rgba(0,0,0,.3);
+.form-daftar button:hover,
+.form-login button:hover {
+  transform: scale(0.98);
+  box-shadow: 3px 5px 8px rgba(0, 0, 0, 0.3);
+}
+.form-daftar #pindahLogin,
+.form-login #pindahDaftar {
+  width: 40%;
+  background: transparent;
+  border: 2px solid var(--main-bg);
 }
 
 .form-login {
-  display: none;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -86,7 +202,7 @@
   background: whitesmoke;
   border-radius: 8px;
   border: 2px solid gray;
-  box-shadow: 5px 5px 10px rgba(0,0,0,.5);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
   gap: 15px;
 }
 .form-login input {
@@ -107,13 +223,8 @@
   cursor: pointer;
   font-weight: bold;
   font-size: 16px;
-  transition: all .3s ease-out;
+  transition: all 0.3s ease-out;
 }
-.form-login button:hover {
-  transform: scale(.98);
-  box-shadow: 3px 5px 8px rgba(0,0,0,.3);
-}
-
 
 /* Content utama */
 .container {
@@ -130,10 +241,10 @@
   overflow-x: hidden;
 
   scrollbar-width: none;
-  -ms-overflow-style: none; 
+  -ms-overflow-style: none;
 }
 .container::-webkit-scrollbar {
-  display: none; 
+  display: none;
 }
 
 .main-content-beranda {
@@ -216,14 +327,18 @@
 }
 
 .box-btn-kelola::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   width: 19%;
   height: 2px;
   background: white;
 }
-.main-content-beranda .hero-section .main-content-top .box-btn-kelola .btn-kelola {
+.main-content-beranda
+  .hero-section
+  .main-content-top
+  .box-btn-kelola
+  .btn-kelola {
   cursor: pointer;
 }
 .main-content-beranda .hero-section .main-content-top .box-btn-kelola ul {
@@ -231,7 +346,12 @@
   flex-direction: column;
   gap: 10px;
 }
-.main-content-beranda .hero-section .main-content-top .box-btn-kelola ul .btn-kelola {
+.main-content-beranda
+  .hero-section
+  .main-content-top
+  .box-btn-kelola
+  ul
+  .btn-kelola {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -240,15 +360,32 @@
   border-radius: 5px;
   padding: 2px;
   gap: 2px;
-  transition: all .3s ease-out;
+  transition: all 0.3s ease-out;
 }
-.main-content-beranda .hero-section .main-content-top .box-btn-kelola ul .btn-kelola:hover {
+.main-content-beranda
+  .hero-section
+  .main-content-top
+  .box-btn-kelola
+  ul
+  .btn-kelola:hover {
   color: var(--side-two-bg);
 }
-.main-content-beranda .hero-section .main-content-top .box-btn-kelola ul .btn-kelola p {
+.main-content-beranda
+  .hero-section
+  .main-content-top
+  .box-btn-kelola
+  ul
+  .btn-kelola
+  p {
   font-size: 12px;
 }
-.main-content-beranda .hero-section .main-content-top .box-btn-kelola ul .btn-kelola i {
+.main-content-beranda
+  .hero-section
+  .main-content-top
+  .box-btn-kelola
+  ul
+  .btn-kelola
+  i {
   font-size: 20px;
 }
 
@@ -268,7 +405,7 @@
   gap: 20px;
   overflow: scroll;
   scrollbar-width: none;
-  -ms-overflow-style: none; 
+  -ms-overflow-style: none;
 }
 .main-content-beranda .section-pilihan::-webkit-scrollbar {
   display: none;
@@ -278,7 +415,7 @@
   width: 90%;
   height: 170px;
   background: var(--box-btn-pilihan);
-  box-shadow: 10px 10px 12px rgba(0,0,0,.2);
+  box-shadow: 10px 10px 12px rgba(0, 0, 0, 0.2);
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
   gap: 16px;
@@ -289,7 +426,7 @@
   flex-shrink: 0;
   /* border: 2px solid black; */
   background: linear-gradient(to top, rgb(209, 209, 209), white);
-  box-shadow: 0 0 12px rgba(0,0,0,.2);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
   border-radius: 7px;
   display: flex;
   flex-direction: column;
@@ -297,7 +434,7 @@
   align-items: center;
   gap: 5px;
   cursor: pointer;
-  transition: all .3s ease-out;
+  transition: all 0.3s ease-out;
 }
 .main-content-beranda .section-pilihan .box-btn-pilihan .btn-pilihan:hover {
   color: var(--side-bg);
@@ -309,7 +446,6 @@
 .main-content-beranda .section-pilihan .box-btn-pilihan .btn-pilihan .icon {
   font-size: 22px;
 }
-
 
 .main-content-beranda .section-pilihan .box-berita {
   flex-shrink: 0;
@@ -335,7 +471,7 @@
   height: 98%;
   border-radius: 5px;
   background: linear-gradient(to bottom, whitesmoke, rgb(209, 207, 207));
-  box-shadow: 5px 5px 10px rgba(0,0,0,.2);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   display: flex;
   text-align: center;
   justify-content: center;
@@ -343,7 +479,6 @@
   font-size: 15px;
   padding: 5px;
 }
-
 
 .nav-bar-bottom {
   position: fixed;
@@ -388,9 +523,9 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-} 
+}
 .nav-bar-bottom .hover {
-  transition: all .3s ease-out;
+  transition: all 0.3s ease-out;
 }
 .nav-bar-bottom .hover:hover {
   color: yellow;

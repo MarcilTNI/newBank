@@ -11,18 +11,27 @@
   --qris-bg: purple;
   --border-color: gray;
   --border-qris: white;
+  --box-btn-pilihan: white;
+  --color-text-maincontent-top: white;
 
 }
 
 .container {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   background: var(--container-bg);
   display: flex;
   flex-direction: column;
   /* justify-content: center; */
   align-items: center;
+  overflow: scroll;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none; 
+}
+.container::-webkit-scrollbar {
+  display: none; 
 }
 
 .main-content-beranda {
@@ -35,21 +44,35 @@
   padding-bottom: 70px;
 }
 
-.section-top {
+.main-content-beranda .hero-section {
+  flex-shrink: 0;
+  width: 100%;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  align-items: center;
+  background: linear-gradient(to bottom, var(--main-bg), white);
+}
+
+.main-content-beranda .hero-section .section-top {
+  flex-shrink: 0;
+  z-index: 100;
   position: sticky;
   top: 0;
   display: flex;
   width: 100%;
   height: 70px;
   align-items: center;
-  background: linear-gradient(to bottom, var(--main-bg), transparent);
+  background: linear-gradient(to bottom, var(--main-bg) 30%, transparent 100%);
+  color: var(--color-text-maincontent-top);
   padding: 10px 20px;
 }
-.section-top .user {
+.main-content-beranda .hero-section .section-top .user {
   margin-right: auto;
 }
 
-.main-content-top {
+.main-content-beranda .hero-section .main-content-top {
   position: absolute;
   top: 70px;
   width: 90%;
@@ -59,28 +82,57 @@
   align-items: center;
   padding: 10px 15px;
   background: var(--main-bg);
+  color: var(--color-text-maincontent-top);
   border-radius: 12px;
   border: 2px solid var(--border-color);
 }
-.main-content-top .saldo {
+.main-content-beranda .hero-section .main-content-top .saldo {
   margin-right: auto;
 }
-.main-content-top .saldo .saldo-mata {
+.main-content-beranda .hero-section .main-content-top .saldo .saldo-mata {
   display: flex;
-  margin-top: 5px;
+  margin-top: 10px;
 }
 
-.main-content-top .box-btn-kelola .btn-kelola {
+.main-content-beranda .hero-section .main-content-top .box-btn-kelola .btn-kelola {
   cursor: pointer;
 }
-.main-content-top .box-btn-kelola ul {
+.main-content-beranda .hero-section .main-content-top .box-btn-kelola ul {
   display: flex;
   flex-direction: column;
 }
-.main-content-top .box-btn-kelola ul li {
+.main-content-beranda .hero-section .main-content-top .box-btn-kelola ul li {
   display: flex;
   flex-direction: column;
 
+}
+
+.main-content-beranda .section-pilihan {
+  position: absolute;
+  top: 260px;
+  min-height: 400px;
+  width: 100%;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  background: var(--side-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+}
+.main-content-beranda .section-pilihan .box-btn-pilihan {
+  width: 90%;
+  height: 150px;
+  background: var(--box-btn-pilihan);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 16px;
+  padding: 10px;
+  border-radius: 12px;
+}
+.main-content-beranda .section-pilihan .box-btn-pilihan .btn {
+  background: red;
+  border-radius: 7px;
 }
 
 

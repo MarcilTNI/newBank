@@ -8,7 +8,7 @@
   --container-bg: white;
   --main-bg: rgb(12, 5, 205);
   --side-bg: rgb(34, 34, 167);
-  --qris-bg: purple;
+  --side-two-bg: yellow;
   --border-color: gray;
   --border-qris: white;
   --box-btn-pilihan: white;
@@ -17,6 +17,7 @@
 }
 
 .container {
+  font-family: Arial, Helvetica, sans-serif;
   position: relative;
   width: 100%;
   height: 100vh;
@@ -26,6 +27,7 @@
   /* justify-content: center; */
   align-items: center;
   overflow: scroll;
+  overflow-x: hidden;
 
   scrollbar-width: none;
   -ms-overflow-style: none; 
@@ -68,15 +70,34 @@
   color: var(--color-text-maincontent-top);
   padding: 10px 20px;
 }
+.main-content-beranda .hero-section .section-top .logo {
+  margin-right: 5px;
+}
 .main-content-beranda .hero-section .section-top .user {
   margin-right: auto;
+}
+
+.main-content-beranda .hero-section .section-top .voucher-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-text-maincontent-top);
+  gap: 2px;
+  cursor: pointer;
+}
+.main-content-beranda .hero-section .section-top .voucher-icon:hover {
+  color: var(--side-two-bg);
+}
+.main-content-beranda .hero-section .section-top .voucher-icon p {
+  font-size: 10px;
 }
 
 .main-content-beranda .hero-section .main-content-top {
   position: absolute;
   top: 70px;
   width: 90%;
-  height: 100px;
+  height: 110px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -94,23 +115,47 @@
   margin-top: 10px;
 }
 
+.box-btn-kelola::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 19%;
+  height: 2px;
+  background: white;
+}
 .main-content-beranda .hero-section .main-content-top .box-btn-kelola .btn-kelola {
   cursor: pointer;
 }
 .main-content-beranda .hero-section .main-content-top .box-btn-kelola ul {
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
-.main-content-beranda .hero-section .main-content-top .box-btn-kelola ul li {
+.main-content-beranda .hero-section .main-content-top .box-btn-kelola ul .btn-kelola {
   display: flex;
   flex-direction: column;
-
+  justify-content: center;
+  align-items: center;
+  color: var(--color-text-maincontent-top);
+  border-radius: 5px;
+  padding: 2px;
+  gap: 2px;
+  transition: all .3s ease-out;
+}
+.main-content-beranda .hero-section .main-content-top .box-btn-kelola ul .btn-kelola:hover {
+  color: var(--side-two-bg);
+}
+.main-content-beranda .hero-section .main-content-top .box-btn-kelola ul .btn-kelola p {
+  font-size: 12px;
+}
+.main-content-beranda .hero-section .main-content-top .box-btn-kelola ul .btn-kelola i {
+  font-size: 20px;
 }
 
 .main-content-beranda .section-pilihan {
   position: absolute;
   top: 260px;
-  min-height: 400px;
+  height: auto;
   width: 100%;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
@@ -119,20 +164,84 @@
   flex-direction: column;
   align-items: center;
   padding-top: 30px;
+  padding-bottom: 80px;
+  gap: 20px;
+  overflow: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none; 
+}
+.main-content-beranda .section-pilihan::-webkit-scrollbar {
+  display: none;
 }
 .main-content-beranda .section-pilihan .box-btn-pilihan {
+  flex-shrink: 0;
   width: 90%;
-  height: 150px;
+  height: 170px;
   background: var(--box-btn-pilihan);
+  box-shadow: 10px 10px 12px rgba(0,0,0,.2);
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
   gap: 16px;
-  padding: 10px;
+  padding: 15px;
   border-radius: 12px;
 }
-.main-content-beranda .section-pilihan .box-btn-pilihan .btn {
-  background: red;
+.main-content-beranda .section-pilihan .box-btn-pilihan .btn-pilihan {
+  flex-shrink: 0;
+  /* border: 2px solid black; */
+  background: linear-gradient(to top, rgb(209, 209, 209), white);
+  box-shadow: 0 0 12px rgba(0,0,0,.2);
   border-radius: 7px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: all .3s ease-out;
+}
+.main-content-beranda .section-pilihan .box-btn-pilihan .btn-pilihan:hover {
+  color: var(--side-bg);
+  background: linear-gradient(to bottom, rgb(209, 209, 209), white);
+}
+.main-content-beranda .section-pilihan .box-btn-pilihan .btn-pilihan p {
+  font-size: 10px;
+}
+.main-content-beranda .section-pilihan .box-btn-pilihan .btn-pilihan .icon {
+  font-size: 22px;
+}
+
+
+.main-content-beranda .section-pilihan .box-berita {
+  flex-shrink: 0;
+  background: white;
+  width: 98%;
+  height: 180px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding: 10px 10px;
+  gap: 20px;
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.main-content-beranda .section-pilihan .box-berita::-webkit-scrollbar {
+  display: none;
+}
+.main-content-beranda .section-pilihan .box-berita .berita {
+  flex-shrink: 0;
+  width: 300px;
+  height: 98%;
+  border-radius: 5px;
+  background: linear-gradient(to bottom, whitesmoke, rgb(209, 207, 207));
+  box-shadow: 5px 5px 10px rgba(0,0,0,.2);
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  padding: 5px;
 }
 
 
@@ -146,34 +255,46 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.nav-bar-bottom ul {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   gap: 20px;
+  padding: 5px;
 }
-.nav-bar-bottom ul li {
+.nav-bar-bottom .btn-navbar-bottom {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  list-style-type: none;
-  background: white;
+  color: var(--side-two-bg);
   width: 50px;
   height: 50px;
   cursor: pointer;
+  gap: 5px;
 }
-.nav-bar-bottom ul li a {
-  text-decoration: none;
-  color: black;
+.nav-bar-bottom .btn-navbar-bottom p {
+  font-size: 12px;
 }
-.nav-bar-bottom ul .btn-special {
+.nav-bar-bottom .btn-navbar-bottom i {
+  font-size: 20px;
+}
+
+.nav-bar-bottom .btn-special {
   transform: translateY(-20px);
-  background: var(--qris-bg);
+  background: var(--side-two-bg);
   border-radius: 50%;
   border: 3px solid var(--border-qris);
   width: 60px;
   height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+} 
+.nav-bar-bottom .hover {
+  transition: all .3s ease-out;
 }
+.nav-bar-bottom .hover:hover {
+  color: yellow;
+}
+/* .nav-bar-bottom .btn-navbar-bottom {
+  color: yellow;
+} */

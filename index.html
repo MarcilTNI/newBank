@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bank Bank-an</title>
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css"
+      integrity="sha512-ApSLB1Pd3/bZN8fWB/RG9YhN/7bd9Hkf3AGaE2mPfebjrxagjuBtx2GcgdqIlJkUzwylBo61r9Xa9NmgBI0swA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
   <body>
     <div class="container">
@@ -18,8 +25,9 @@
               <p id="idUser">id</p>
             </div>
 
-            <div class="icon-tambahan">
-              <h5>voucher</h5>
+            <div class="voucher-icon">
+              <i class="fa-solid fa-ticket"></i>
+              <p>Voucher</p>
             </div>
           </div>
 
@@ -35,12 +43,12 @@
             <div class="box-btn-kelola">
               <ul>
                 <li id="btnTopUp" class="btn-kelola">
-                  <span>topup</span>
-                  <span>topup</span>
+                  <i class="fa-solid fa-circle-plus"></i>
+                  <p>topup</p>
                 </li>
                 <li id="btnTarikTunai" class="btn-kelola">
-                  <span>Tarik Tunai</span>
-                  <span>Tarik Tunai</span>
+                  <i class="fa-solid fa-circle-arrow-down"></i>
+                  <p>Tarik Tunai</p>
                 </li>
               </ul>
             </div>
@@ -49,12 +57,63 @@
 
         <div class="section-pilihan">
           <div class="box-btn-pilihan">
-            <div class="btn">Transfer</div>
-            <div class="btn">Paket Data</div>
-            <div class="btn">Pulsa</div>
-            <div class="btn">PLN</div>
-            <div class="btn">TopUp Game</div>
-            <div class="btn">Tiket Transportasi</div>
+            <div class="btn-pilihan" id="btnTransfer">
+              <i class="fa-solid fa-circle-arrow-up icon"></i>
+              <p>Transfer</p>
+            </div>
+            <div class="btn-pilihan" id="btnPaketData">
+              <i class="fa-solid fa-signal icon"></i>
+              <p>Paket Data</p>
+            </div>
+            <div class="btn-pilihan" id="btnPulsa">
+              <i class="fa-solid fa-mobile-screen-button icon"></i>
+              <p>Pulsa</p>
+            </div>
+            <div class="btn-pilihan" id="btnPLN">
+              <i class="fa-solid fa-bolt icon"></i>
+              <p>PLN</p>
+            </div>
+            <div class="btn-pilihan" id="btnTopUpGame">
+              <i class="fa-solid fa-gamepad icon"></i>
+              <p>TopUp Game</p>
+            </div>
+            <div class="btn-pilihan" id="btnTranportasi">
+              <i class="fa-solid fa-train icon"></i>
+              <p>Transportasi</p>
+            </div>
+          </div>
+
+          <div class="box-berita">
+            <div class="berita">
+              <p>
+                📢 Promo Cashback 50% <br />
+                untuk pembayaran QRIS di merchant pilihan. Diskon Rp20.000 untuk
+                pembelian tiket transportasi. Bonus saldo setelah top up minimal
+                Rp100.000. Promo top up game hingga 30%. Gratis biaya transfer
+                ke semua bank hari ini.
+              </p>
+            </div>
+            <div class="berita">
+              🔔 Informasi <br />
+              Fitur Favorit kini tersedia. Kini pembayaran PLN lebih cepat.
+              Jadwal maintenance pada Minggu pukul 01.00–03.00 WIB. Pembaruan
+              aplikasi versi 2.0 telah tersedia. Kini mendukung pembayaran
+              parkir digital.
+            </div>
+            <div class="berita">
+              🛡️ Keamanan <br />
+              Jangan pernah membagikan kode OTP kepada siapa pun. Waspadai
+              penipuan yang mengatasnamakan layanan pelanggan. Aktifkan PIN dan
+              biometrik untuk keamanan akun. Selalu periksa nama penerima
+              sebelum transfer. Hindari login melalui tautan yang tidak dikenal.
+            </div>
+            <div class="berita">
+              🎉 Event <br />
+              Tebak skor dan menangkan saldo gratis. Misi harian: transaksi 3
+              kali, dapat cashback. Undang teman dan dapatkan bonus. Festival
+              Belanja Nasional dimulai minggu ini. Promo akhir bulan spesial
+              pengguna baru.
+            </div>
           </div>
         </div>
       </div>
@@ -66,27 +125,25 @@
 
       <!-- Navbar-Bottom -->
       <div class="nav-bar-bottom">
-        <ul>
-          <li id="btnBeranda">
-            <span>klik</span>
-            <span>Beranda</span>
-          </li>
-          <li id="btnTopUp">
-            <span>klik</span>
-            <span>home</span>
-          </li>
-          <li class="btn-special" id="btnQris">
-            <a href="#">QRIS</a>
-          </li>
-          <li id="btnRiwayat">
-            <span>klik</span>
-            <span>Riwayat</span>
-          </li>
-          <li id="btnProfil">
-            <span>klik</span>
-            <span>Profil</span>
-          </li>
-        </ul>
+        <div class="btn-navbar-bottom hover" id="btnBeranda">
+          <i class="fa-regular fa-house"></i>
+          <p>Beranda</p>
+        </div>
+        <div class="btn-navbar-bottom hover" id="btnTopUp">
+          <i class="fa-regular fa-star"></i>
+          <p>Favorit</p>
+        </div>
+        <div class="btn-special" id="btnQris">
+          <p>QRIS</p>
+        </div>
+        <div class="btn-navbar-bottom hover" id="btnRiwayat">
+          <i class="fa-regular fa-clipboard"></i>
+          <p>Riwayat</p>
+        </div>
+        <div class="btn-navbar-bottom hover" id="btnProfil">
+          <i class="fa-regular fa-user"></i>
+          <p>Profil</p>
+        </div>
       </div>
 
       <!-- Main-content-Profil -->

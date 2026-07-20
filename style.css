@@ -21,10 +21,10 @@ body {
 .loading {
   position: absolute;
   z-index: 1000;
-  top: 10px;
-  width: 100%;
-  height: 100px;
-  border: 1px solid yellow;
+  top: 5px;
+  left: 26%;
+  width: 50%;
+  height: 70px;
 }
 .popup-loading {
   transform: translateY(-50px);
@@ -64,57 +64,50 @@ body {
   }
 }
 .popup-loading p {
-  background: transparent;
+  /* background: transparent; */
   color: white;
 }
 
 /* popup */
-.popup-error {
+.popup {
+  font-family: arial;
   position: absolute;
   top: 10px;
-  width: 100%;
-  height: 100px;
-  background: transparent;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-.card {
+  left: 15%;
   width: 250px;
-  height: 100%;
+  height: 100px;
   font-size: 1em;
   border-radius: 12px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding-left: 15px;
-  font-size: 1em;
+  font-size: 1.2em;
+  font-weight: bold;
+  opacity: 0;
+  visibility: hidden;
   transform: translateY(-120px);
-  animation: popup 0.5s ease forwards;
+  transition: all 0.3s ease-out;
+  z-index: 999;
 }
-@keyframes popup {
-  to {
-    transform: translateY(0);
-  }
+.popup.show {
+  transform: translateY(0);
+  visibility: visible;
+  opacity: 1;
 }
-.card h1,
-.card p {
-  background: transparent;
-}
-.error {
-  color: rgb(182, 0, 0);
+.popup.error {
+  color: red;
   background: salmon;
   border: 2px solid red;
 }
-.success {
-  color: rgb(18, 251, 18);
-  background: green;
-  border: 2px solid rgb(18, 251, 18);
+.popup.success {
+  color: rgb(0, 92, 0);
+  background: rgb(48, 255, 48);
+  border: 2px solid green;
 }
 
-/* Form Login dan Daftar */
 
+/* Form Login dan Daftar */
 .login-register {
   display: flex;
   justify-content: center;
@@ -247,6 +240,60 @@ body {
   display: none;
 }
 
+.container .formTopUp #closeFormTopUp {
+  width: 40px;
+  height: 40px;
+}
+
+.container #topUpForm {
+  display: none;
+}
+.container .formTopUp {
+  position: fixed;
+  top: 200px;
+  height: 250px;
+  width: 80%;
+  gap: 10px;
+  border-radius: 8px;
+  background: white;
+  border: 2px solid gray;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+.container .formTopUp input {
+  width: 90%;
+  height: 35px;
+  padding-left: 10px;
+  outline: none;
+  border: 1px solid var(--side-bg);
+  border-radius: 8px;
+}
+.container .formTopUp .box-btn-topUp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  /* border: 1px solid red; */
+  gap: 10px;
+}
+
+.container .formTopUp .box-btn-topUp button {
+  width: max-content;
+  padding: 10px 15px;
+  background: var(--side-two-bg);
+  border: 2px solid gray;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s ease-out;
+}
+.container .formTopUp .box-btn-topUp button:hover {
+  transform: scale(0.95);
+  box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
 .main-content-beranda {
   min-height: 100vh;
   width: 100%;
@@ -286,6 +333,7 @@ body {
 }
 .main-content-beranda .hero-section .section-top .user {
   margin-right: auto;
+  font-size: 12px;
 }
 
 .main-content-beranda .hero-section .section-top .voucher-icon {
@@ -326,11 +374,18 @@ body {
   margin-top: 10px;
 }
 
+.main-content-beranda .hero-section .main-content-top .box-btn-kelola {
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid yellow; */
+  width: 30%;
+  gap: 10px;
+}
 .box-btn-kelola::after {
   content: "";
   position: absolute;
   top: 50%;
-  width: 19%;
+  width: 27%;
   height: 2px;
   background: white;
 }
@@ -339,19 +394,6 @@ body {
   .main-content-top
   .box-btn-kelola
   .btn-kelola {
-  cursor: pointer;
-}
-.main-content-beranda .hero-section .main-content-top .box-btn-kelola ul {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.main-content-beranda
-  .hero-section
-  .main-content-top
-  .box-btn-kelola
-  ul
-  .btn-kelola {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -359,14 +401,17 @@ body {
   color: var(--color-text-maincontent-top);
   border-radius: 5px;
   padding: 2px;
+  width: 100%;
+  height: 50%;
   gap: 2px;
   transition: all 0.3s ease-out;
+  cursor: pointer;
+  /* border: 1px solid red; */
 }
 .main-content-beranda
   .hero-section
   .main-content-top
   .box-btn-kelola
-  ul
   .btn-kelola:hover {
   color: var(--side-two-bg);
 }
@@ -374,7 +419,6 @@ body {
   .hero-section
   .main-content-top
   .box-btn-kelola
-  ul
   .btn-kelola
   p {
   font-size: 12px;
@@ -383,7 +427,6 @@ body {
   .hero-section
   .main-content-top
   .box-btn-kelola
-  ul
   .btn-kelola
   i {
   font-size: 20px;
@@ -480,6 +523,57 @@ body {
   padding: 5px;
 }
 
+
+/* Main content Favorit*/
+.main-content-favorit {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main-content-favorit #listFavorit {
+  width: 98%;
+  height: auto;
+  padding: 5px;
+  padding-bottom: 70px;
+}
+.main-content-favorit .item-favorit {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.main-content-favorit .item-favorit .box-text {
+  width: max-content;
+  height: auto;
+  padding: 5px;
+  gap: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.main-content-favorit .item-favorit .pakai-lagi {
+  width: max-content;
+  height: 35px;
+  padding: 5px 10px;
+  background: var(--side-bg);
+  color: white;
+  border-radius: 8px;
+  border: 2px solid gray;
+}
+.main-content-favorit .item-favorit .hapus-favorit {
+  width: max-content;
+  height: 35px;
+  padding: 5px 10px;
+  background: rgb(171, 0, 0);
+  color: white;
+  border-radius: 8px;
+  border: 2px solid gray;
+}
+
+/* Navbar Bottom */
 .nav-bar-bottom {
   position: fixed;
   bottom: 0;
@@ -530,6 +624,3 @@ body {
 .nav-bar-bottom .hover:hover {
   color: yellow;
 }
-/* .nav-bar-bottom .btn-navbar-bottom {
-  color: yellow;
-} */

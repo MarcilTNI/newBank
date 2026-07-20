@@ -1,6 +1,12 @@
 const load = document.querySelector(".loading");
+const popup = document.querySelector(".popup");
 
 const container = document.querySelector(".container");
+const containerLoginDaftar = document.querySelector(".login-register");
+
+const namaUser = document.querySelector("#namaUser");
+const idUser = document.querySelector("#idUser");
+const saldo = document.querySelector("#saldoUser");
 
 const formLogin = document.querySelector(".form-login");
 const formDaftar = document.querySelector(".form-daftar");
@@ -12,19 +18,50 @@ const inputNamaDaftar = document.querySelector("#inputNamaDaftar");
 const inputPasswordDaftar1 = document.querySelector("#inputPasswordDaftar1");
 const inputPasswordDaftar2 = document.querySelector("#inputPasswordDaftar2");
 
+const inputNominal = document.querySelector("#inputNominal");
+const inputBank = document.querySelector("#inputBank");
+const btnTambahSaldo = document.querySelector("#btnTambahSaldo");
+const btnTambahFavorit = document.querySelector("#btnTambahFavorit");
+
 const btnLogin = document.querySelector("#btnLogin");
 const btnDaftar = document.querySelector("#btnDaftar");
+
+const pageBeranda = document.querySelector('.main-content-beranda')
+const pageFavorit = document.querySelector('.main-content-favorit')
+const pageRiwayat = document.querySelector('.main-content-riwayat')
+const pageProfil = document.querySelector('.main-content-profil')
 
 const btnPindahLogin = document.querySelector("#pindahLogin");
 const btnPindahDaftar = document.querySelector("#pindahDaftar");
 
+const btnPindahBeranda = document.querySelector("#btnBeranda");
+const btnPindahFavorit = document.querySelector("#btnFavorit");
+const btnPindahRiwayat = document.querySelector("#btnRiwayat");
+const btnPindahProfil = document.querySelector("#btnProfil");
+
+const showTopUp = document.querySelector("#showTopUp");
+
+
 let users = [];
+let currentUser = null;
+let formTopUpTerbuka = false;
+let popupTimer;
+
 function saveUsers() {
   localStorage.setItem("users", JSON.stringify(users));
 }
 
 function getUsers() {
-  const data = JSON.parse(localStorage.getItem("users"));
+  const data = JSON.parse(localStorage.getItem("users")) || [];
+
+  users = data;
+  console.log(users);
+}
+
+function updateUserUI() {
+  namaUser.textContent = currentUser.nama;
+  idUser.textContent = currentUser.id;
+  saldo.textContent = currentUser.saldo.toLocaleString("id-ID");
 }
 
 function daftar() {
@@ -33,19 +70,19 @@ function daftar() {
   const pass2 = inputPasswordDaftar2.value;
 
   if (!username || !pass1 || !pass2) {
-    showError("Nama dan Password tidak boleh kosong");
+    showPopup("Nama dan Password tidak boleh kosong", 'error');
     return;
   }
 
   if (pass1 !== pass2) {
-    showError("Password berbeda");
+    showPopup("Password berbeda", 'error');
     return;
   }
 
   const userExist = users.find((u) => u.nama === username);
 
   if (userExist) {
-    showError("Nama sudah terdaftar!");
+    showPopup("Nama sudah terdaftar!", 'error');
     return;
   }
 
@@ -62,13 +99,13 @@ function daftar() {
 
   saveUsers();
 
-  showSucces("Pendaftaran berhasil, silahkan Login!");
+  showPopup("Pendaftaran berhasil, silahkan Login!", 'success');
 
   inputNamaDaftar.value = "";
   inputPasswordDaftar1.value = "";
   inputPasswordDaftar2.value = "";
 
-  setTimeout(() => (err.innerHTMl = ""), 2000);
+  getUsers();
 }
 
 async function login() {
@@ -76,14 +113,14 @@ async function login() {
   const pass = inputPasswordLogin.value;
 
   if (!username || !pass) {
-    showError("Nama dan Password tidak boleh kosong!");
+    showPopup("Nama dan Password tidak boleh kosong!", 'error');
     return;
   }
 
-  const userExist = users.find((u) => u.nama === username);
+  const userExsist = users.find((u) => u.nama === username);
 
-  if (!userExist) {
-    showError("User tidak ditemukan!");
+  if (!userExsist) {
+    showPopup("User tidak ditemukan!", 'error');
     return;
   }
 
@@ -94,35 +131,138 @@ async function login() {
       (u) => u.nama === username && u.password === pass,
     );
 
-    if (!validUser) throw "Password salah!";
+    if (!validUser) throw "Password salah";
 
-    formLogin.style.display = "none";
+    containerLoginDaftar.style.display = "none";
     container.style.display = "flex";
-  } catch (err) {
-    showError("Nama atau Password salah!");
+
+    currentUser = validUser;
+    updateUserUI();
+    renderFavorit()
+    console.log(currentUser);
+  } catch (error) {
+    showPopup("Nama atau Password salah!", 'error');
   } finally {
     showLoading(false);
   }
+
+  // console.log(users.includes(currentUser))
 }
 
-function showError(message) {
-  err.innerHTML = `
-        <div class="card error">
-            <h1>Error!!</h1>
-            <p>${message}</p>
-        </div>
-    `;
-  setTimeout(() => (err.innerHTML = ""), 2000);
+function showFormTopUp() {
+  const formTopUp = document.querySelector("#topUpForm");
+  formTopUp.style.display = "flex";
+  formTopUpTerbuka = true;
 }
 
-function showSuccess(message) {
-  err.innerHTML = `
-        <div class="card success">
-            <h1>Success!!</h1>
-            <p>${message}</p>
+function closeFormTopUp() {
+  const formTopUp = document.querySelector("#topUpForm");
+  formTopUp.style.display = "none";
+  formTopUpTerbuka = false;
+}
+
+function topUpSaldo() {
+  const nominal = Number(inputNominal.value);
+  const bank = inputBank.value;
+
+  if (isNaN(nominal)) {
+    showPopup("Masukkan angka yang valid!", 'error');
+  }
+
+  if (!nominal || !bank) {
+    showPopup("Form tidak boleh kosong!", 'error');
+    return;
+  }
+
+  if (nominal < 10000) {
+    showPopup("Minimal topUp Rp10.000", 'error');
+    return;
+  }
+
+  currentUser.saldo += nominal;
+
+  updateUserUI();
+
+  showPopup("Berhasil Topup", 'success');
+
+  const formTopUp = document.querySelector("#topUpForm");
+  formTopUp.style.display = "none";
+  formTopUpTerbuka = false;
+
+  inputNominal.value = "";
+  inputBank.value = "";
+
+  saveUsers();
+}
+
+function tambahFavorit() {
+  const nominal = Number(inputNominal.value);
+  const bank = inputBank.value;
+
+  if (isNaN(nominal)) {
+    showPopup("Masukkan angka yang valid!", 'error');
+    return;
+  }
+
+  if (!nominal || !bank) {
+    showPopup("Form tidak boleh kosong!", 'error');
+    return;
+  }
+
+  if (nominal < 10000) {
+    showPopup("Minimal topUp Rp10.000", 'error');
+    return;
+  }
+
+  const newFavorit = {
+    id: `FAV-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 1000)}`,
+    nominal: nominal,
+    bank: bank,
+  };
+
+  currentUser.favorit.push(newFavorit);
+
+  saveUsers()
+
+  showPopup("Berhasil di tambah ke Favorit", 'success');
+  console.log(currentUser);
+  renderFavorit()
+}
+
+function renderFavorit() {
+  const listFavorit = document.querySelector('#listFavorit')
+
+  let html = ''
+
+  currentUser.favorit.forEach(fav => {
+    html += `
+      <li class="item-favorit"> 
+        <div class="box-text">
+          <p>${fav.bank}</p>
+          <p>Rp ${fav.nominal.toLocaleString('id-ID')}</p>
         </div>
-    `;
-  setTimeout(() => (err.innerHTML = ""), 2000);
+        <button class="pakai-lagi">Pakai lagi</button>
+        <button class="hapus-favorit">Hapus</button>
+      </li>
+    `
+  });
+
+  listFavorit.innerHTML = 
+    html || `<li style="list-style-type: none;">Belum ada favorit</li> `
+}
+
+function showPopup(message, type) {
+  popup.textContent = message
+
+  popup.classList.remove('success', 'error')
+  popup.classList.add(type)
+  popup.classList.add('show')
+
+  clearTimeout(popupTimer)
+
+  popupTimer = setTimeout(() => {
+    popup.classList.remove('show')
+  }, 2000)
 }
 
 function showLoading(state) {
@@ -153,3 +293,48 @@ function showLoading(state) {
     btnPindahDaftar.style.cursor = "pointer";
   }
 }
+
+btnLogin.addEventListener("click", login);
+btnDaftar.addEventListener("click", daftar);
+
+btnPindahDaftar.addEventListener("click", () => {
+  formLogin.style.display = "none";
+  formDaftar.style.display = "flex";
+});
+
+btnPindahLogin.addEventListener("click", () => {
+  formDaftar.style.display = "none";
+  formLogin.style.display = "flex";
+});
+
+btnTambahFavorit.addEventListener("click", tambahFavorit);
+
+btnTambahSaldo.addEventListener("click", topUpSaldo);
+
+btnPindahBeranda.addEventListener('click', () => {
+  pageBeranda.style.display = 'flex'
+  pageFavorit.style.display = 'none'
+  pageRiwayat.style.display = 'none'
+  pageProfil.style.display = 'none'
+})
+btnPindahFavorit.addEventListener('click', () => {
+  pageFavorit.style.display = 'flex'
+  pageBeranda.style.display = 'none'
+  pageRiwayat.style.display = 'none'
+  pageProfil.style.display = 'none'
+})
+btnPindahRiwayat.addEventListener('click', () => {
+  pageRiwayat.style.display = 'flex'
+  pageBeranda.style.display = 'none'
+  pageFavorit.style.display = 'none'
+  pageProfil.style.display = 'none'
+})
+btnPindahProfil.addEventListener('click', () => {
+  pageProfil.style.display = 'flex'
+  pageBeranda.style.display = 'none'
+  pageFavorit.style.display = 'none'
+  pageRiwayat.style.display = 'none'
+})
+
+
+getUsers()

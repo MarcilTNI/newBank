@@ -18,13 +18,23 @@
     <div class="loading"></div>
 
     <!-- POP UP -->
-    <div class="popup-error"></div>
+    <div class="popup"></div>
 
     <!-- Form Register & Login -->
     <div class="login-register">
       <div class="form-login">
-        <input type="text" name="nama" placeholder="Nama..." id="inputNamaLogin">
-        <input type="password" name="password" placeholder="Password..." id="inputPasswordLogin">
+        <input
+          type="text"
+          name="nama"
+          placeholder="Nama..."
+          id="inputNamaLogin"
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password..."
+          id="inputPasswordLogin"
+        />
         <div class="box-btn-form">
           <button id="btnLogin">Login</button>
           <button id="pindahDaftar">Form Daftar</button>
@@ -32,11 +42,26 @@
       </div>
 
       <div class="form-daftar">
-        <input type="text" name="nama" placeholder="Nama..." id="inputNamaDaftar">
-        <input type="password" name="password2" placeholder="Password..." id="inputPasswordDaftar1">
+        <input
+          type="text"
+          name="nama"
+          placeholder="Nama..."
+          id="inputNamaDaftar"
+        />
+        <input
+          type="password"
+          name="password2"
+          placeholder="Password..."
+          id="inputPasswordDaftar1"
+        />
         <div class="verif">
           <p>Verifikasi password 2 kali</p>
-          <input type="password" name="password1" placeholder="Password..." id="inputPasswordDaftar2">
+          <input
+            type="password"
+            name="password1"
+            placeholder="Password..."
+            id="inputPasswordDaftar2"
+          />
         </div>
         <div class="box-btn-form">
           <button id="btnDaftar">Daftar</button>
@@ -67,22 +92,27 @@
             <div class="saldo">
               <h3>Total Saldo</h3>
               <div class="saldo-mata">
-                <p class="saldo">Rp <span id="saldo">0</span></p>
+                <p class="saldo">Rp <span id="saldoUser"></span></p>
                 <span>mata</span>
               </div>
             </div>
 
             <div class="box-btn-kelola">
-              <ul>
-                <li id="btnTopUp" class="btn-kelola">
-                  <i class="fa-solid fa-circle-plus"></i>
-                  <p>topup</p>
-                </li>
-                <li id="btnTarikTunai" class="btn-kelola">
-                  <i class="fa-solid fa-circle-arrow-down"></i>
-                  <p>Tarik Tunai</p>
-                </li>
-              </ul>
+              <div
+                id="showTopUp"
+                class="btn-kelola"
+                onclick="
+                  event.preventDefault();
+                  showFormTopUp();
+                "
+              >
+                <i class="fa-solid fa-circle-plus"></i>
+                <p>Top Up</p>
+              </div>
+              <div id="btnTarikTunai" class="btn-kelola">
+                <i class="fa-solid fa-circle-arrow-down"></i>
+                <p>Tarik Tunai</p>
+              </div>
             </div>
           </div>
         </div>
@@ -150,9 +180,44 @@
         </div>
       </div>
 
+      <!-- Main-content-Favorit -->
+      <div class="main-content-favorit">
+        <ul id="listFavorit"></ul>
+      </div>
+
       <!-- Main-content-Riwayat -->
       <div class="main-content-riwayat">
-        <h1>Hello world!</h1>
+        <h1>Hello Riwayat</h1>
+      </div>
+      
+      <!-- Main-content-Profil -->
+      <div class="main-content-profil">
+        <h1>Hello Profil</h1>
+      </div>
+
+      <!-- FormTopUp -->
+      <div class="formTopUp" id="topUpForm">
+        <h3>Top UP</h3>
+        <input
+          type="number"
+          name="nominal"
+          placeholder="Nominal Topup"
+          id="inputNominal"
+        />
+        <input type="text" name="bank" placeholder="Bank" id="inputBank" />
+        <div class="box-btn-topUp">
+          <button id="btnTambahSaldo">Tambah</button>
+          <button id="btnTambahFavorit">Tambah Kefavorit</button>
+        </div>
+        <button
+          id="closeFormTopUp"
+          onclick="
+            event.preventDefault();
+            closeFormTopUp();
+          "
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
       </div>
 
       <!-- Navbar-Bottom -->
@@ -161,7 +226,7 @@
           <i class="fa-regular fa-house"></i>
           <p>Beranda</p>
         </div>
-        <div class="btn-navbar-bottom hover" id="btnTopUp">
+        <div class="btn-navbar-bottom hover" id="btnFavorit">
           <i class="fa-regular fa-star"></i>
           <p>Favorit</p>
         </div>

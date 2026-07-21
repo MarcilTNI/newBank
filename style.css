@@ -536,9 +536,11 @@ body {
   display: none;
   flex-direction: column;
   align-items: center;
+  padding-top: 15px;
 }
 .main-content-favorit h2 {
-  color: red;
+  color: black;
+  margin-bottom: 10px;
 }
 .main-content-favorit #listFavorit {
   width: 98%;
@@ -547,26 +549,36 @@ body {
   border-radius: 8px;
   padding: 10px 15px;
   padding-bottom: 70px;
+  box-shadow: 2px 5px 8px rgba(0, 0, 0, 0.2);
 }
 .main-content-favorit .item-favorit {
+  position: relative;
   width: 100%;
   height: auto;
   display: flex;
   align-items: center;
+  border-left: 4px solid greenyellow;
+  box-shadow: 2px 7px 6px rgba(0, 0, 0, 0.2) , inset 0 0 5px rgba(0, 0, 0, 0.2);
+  background: white;
+  border-radius: 8px;
   gap: 10px;
+  margin-top: 10px;
+  padding: 10px;
 }
 .main-content-favorit .item-favorit .box-text {
   width: max-content;
   height: auto;
   padding: 5px;
   gap: 5px;
+  margin-right: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
+  font-size: 16px;
 }
 .main-content-favorit .item-favorit .pakai-lagi {
   width: max-content;
-  height: 35px;
+  height: 30px;
   padding: 5px 10px;
   background: var(--side-bg);
   color: white;
@@ -575,7 +587,7 @@ body {
 }
 .main-content-favorit .item-favorit .hapus-favorit {
   width: max-content;
-  height: 35px;
+  height: 30px;
   padding: 5px 10px;
   background: rgb(171, 0, 0);
   color: white;

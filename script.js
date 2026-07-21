@@ -248,7 +248,7 @@ function renderFavorit() {
   });
 
   listFavorit.innerHTML = 
-    html || `<li style="list-style-type: none;">Belum ada favorit</li> `
+    html || `<li style="list-style-type: none; color: gray; font-size: 13px; font-weight: bold; font-style: italic;">Belum ada favorit</li> `
 }
 
 function showPopup(message, type) {

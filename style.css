@@ -529,13 +529,18 @@ body {
   height: 100vh;
   width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+}
+.main-content-favorit h2 {
+  color: red;
 }
 .main-content-favorit #listFavorit {
   width: 98%;
   height: auto;
-  padding: 5px;
+  border: 1px solid gray;
+  border-radius: 8px;
+  padding: 10px 15px;
   padding-bottom: 70px;
 }
 .main-content-favorit .item-favorit {

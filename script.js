@@ -34,10 +34,10 @@ const pageProfil = document.querySelector('.main-content-profil')
 const btnPindahLogin = document.querySelector("#pindahLogin");
 const btnPindahDaftar = document.querySelector("#pindahDaftar");
 
-const btnPindahBeranda = document.querySelector("#btnBeranda");
-const btnPindahFavorit = document.querySelector("#btnFavorit");
-const btnPindahRiwayat = document.querySelector("#btnRiwayat");
-const btnPindahProfil = document.querySelector("#btnProfil");
+const btnBeranda = document.querySelector("#btnBeranda");
+const btnFavorit = document.querySelector("#btnFavorit");
+const btnRiwayat = document.querySelector("#btnRiwayat");
+const btnProfil = document.querySelector("#btnProfil");
 
 const showTopUp = document.querySelector("#showTopUp");
 
@@ -58,6 +58,18 @@ function getUsers() {
   console.log(users);
 }
 
+function resetAll() {
+  const pages = document.querySelectorAll('.page-content')
+  pages.forEach(page => {
+    page.style.display = 'none'
+  })
+
+  const buttons = document.querySelectorAll('.btn-navbar-bottom')
+  buttons.forEach(btn => {
+    btn.classList.remove('active')
+  })
+}
+
 function updateUserUI() {
   namaUser.textContent = currentUser.nama;
   idUser.textContent = currentUser.id;
@@ -65,9 +77,11 @@ function updateUserUI() {
 }
 
 function daftar() {
-  const username = inputNamaDaftar.value;
-  const pass1 = inputPasswordDaftar1.value;
-  const pass2 = inputPasswordDaftar2.value;
+  const username = inputNamaDaftar.value.trim();
+  const pass1 = inputPasswordDaftar1.value.trim();
+  const pass2 = inputPasswordDaftar2.value.trim();
+
+  // const cekDoubleName = username.toLowerCase()
 
   if (!username || !pass1 || !pass2) {
     showPopup("Nama dan Password tidak boleh kosong", 'error');
@@ -85,6 +99,11 @@ function daftar() {
     showPopup("Nama sudah terdaftar!", 'error');
     return;
   }
+
+  // if(username.toLowerCase() === cekDoubleName) {
+  //   showPopup('Nama sudh terdaftar!', 'error')
+  //   return
+  // }
 
   const newUser = {
     id: `USR-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 1000)}`,
@@ -109,8 +128,8 @@ function daftar() {
 }
 
 async function login() {
-  const username = inputNamaLogin.value;
-  const pass = inputPasswordLogin.value;
+  const username = inputNamaLogin.value.trim();
+  const pass = inputPasswordLogin.value.trim();
 
   if (!username || !pass) {
     showPopup("Nama dan Password tidak boleh kosong!", 'error');
@@ -294,6 +313,34 @@ function showLoading(state) {
   }
 }
 
+function showBeranda() {
+  resetAll()
+  pageBeranda.style.display = 'flex'
+  btnBeranda.classList.add('active')
+  console.log('klik')
+}
+
+function showFavorit() {
+  resetAll()
+  pageFavorit.style.display = 'flex'
+  btnFavorit.classList.add('active')
+  console.log('klik')
+}
+
+function showRiwayat() {
+  resetAll()
+  pageRiwayat.style.display = 'flex'
+  btnRiwayat.classList.add('active')
+  console.log('klik')
+}
+
+function showProfil() {
+  resetAll()
+  pageProfil.style.display = 'flex'
+  btnProfil.classList.add('active')
+  console.log('klik')
+}
+
 btnLogin.addEventListener("click", login);
 btnDaftar.addEventListener("click", daftar);
 
@@ -311,30 +358,10 @@ btnTambahFavorit.addEventListener("click", tambahFavorit);
 
 btnTambahSaldo.addEventListener("click", topUpSaldo);
 
-btnPindahBeranda.addEventListener('click', () => {
-  pageBeranda.style.display = 'flex'
-  pageFavorit.style.display = 'none'
-  pageRiwayat.style.display = 'none'
-  pageProfil.style.display = 'none'
-})
-btnPindahFavorit.addEventListener('click', () => {
-  pageFavorit.style.display = 'flex'
-  pageBeranda.style.display = 'none'
-  pageRiwayat.style.display = 'none'
-  pageProfil.style.display = 'none'
-})
-btnPindahRiwayat.addEventListener('click', () => {
-  pageRiwayat.style.display = 'flex'
-  pageBeranda.style.display = 'none'
-  pageFavorit.style.display = 'none'
-  pageProfil.style.display = 'none'
-})
-btnPindahProfil.addEventListener('click', () => {
-  pageProfil.style.display = 'flex'
-  pageBeranda.style.display = 'none'
-  pageFavorit.style.display = 'none'
-  pageRiwayat.style.display = 'none'
-})
+btnBeranda.addEventListener('click', showBeranda)
+btnFavorit.addEventListener('click', showFavorit)
+btnRiwayat.addEventListener('click', showRiwayat)
+btnProfil.addEventListener('click', showProfil)
 
 
 getUsers()

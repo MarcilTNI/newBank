@@ -18,10 +18,14 @@ const inputNamaDaftar = document.querySelector("#inputNamaDaftar");
 const inputPasswordDaftar1 = document.querySelector("#inputPasswordDaftar1");
 const inputPasswordDaftar2 = document.querySelector("#inputPasswordDaftar2");
 
-const inputNominal = document.querySelector("#inputNominal");
-const inputBank = document.querySelector("#inputBank");
+const inputNominalTopUp = document.querySelector("#inputNominalTopUp");
+const inputNominalTarik = document.querySelector("#inputNominalTarik");
+const kodeTarik = document.querySelector("#kodeTarik");
+const inputBank = document.querySelector(".inputBank");
+const inputTempatTarik = document.querySelector("#inputTempatTarik");
 const btnTambahSaldo = document.querySelector("#btnTambahSaldo");
-const btnTambahFavorit = document.querySelector("#btnTambahFavorit");
+const btnTarikTunai = document.querySelector("#btnTarikTunai");
+// const btnTambahFavorit = document.querySelector(".btnTambahFavorit");
 
 const btnLogin = document.querySelector("#btnLogin");
 const btnDaftar = document.querySelector("#btnDaftar");
@@ -42,10 +46,12 @@ const btnProfil = document.querySelector("#btnProfil");
 const listFavorit = document.querySelector("#listFavorit");
 
 const showTopUp = document.querySelector("#showTopUp");
+const showTarikTunai = document.querySelector("#showTarikTunai");
 
 let users = [];
 let currentUser = null;
 let formTopUpTerbuka = false;
+let formTarikTunaiTerbuka = false;
 let popupTimer;
 
 function saveUsers() {
@@ -132,7 +138,9 @@ async function login() {
     return;
   }
 
-  const userExsist = users.find((u) => u.nama === username);
+  const usernameLower = username.toLowerCase();
+
+  const userExsist = users.find((u) => u.nama?.toLowerCase() === usernameLower);
 
   if (!userExsist) {
     showPopup("User tidak ditemukan!", "error");
@@ -143,7 +151,7 @@ async function login() {
     showLoading(true);
     await new Promise((resolve) => setTimeout(resolve, 3000));
     const validUser = users.find(
-      (u) => u.nama === username && u.password === pass,
+      (u) => u.nama?.toLowerCase() === usernameLower && u.password === pass,
     );
 
     if (!validUser) throw "Password salah";
@@ -154,6 +162,7 @@ async function login() {
     currentUser = validUser;
     updateUserUI();
     renderFavorit();
+    renderRiwayat();
     console.log(currentUser);
   } catch (error) {
     showPopup("Nama atau Password salah!", "error");
@@ -175,16 +184,43 @@ function closeFormTopUp() {
   formTopUp.style.display = "none";
   formTopUpTerbuka = false;
 
-  inputNominal.value = "";
+  inputNominalTopUp.value = "";
   inputBank.value = "";
 }
 
+function showFormTarikTunai() {
+  const formTarikTunai = document.querySelector("#tarikTunaiForm");
+  formTarikTunai.style.display = "flex";
+  formTarikTunaiTerbuka = true;
+  kodeTarik.textContent = `TRK-${Date.now().toString().slice(-5)}-${Math.floor(Math.random() * 1000)}`;
+}
+
+function closeFormTarikTunai() {
+  const formTarikTunai = document.querySelector("#tarikTunaiForm");
+  formTarikTunai.style.display = "none";
+  formTopUpTerbuka = false;
+
+  inputNominalTarik.value = "";
+  inputTempatTarik.value = "";
+}
+
+function formatWaktu(timestamp) {
+  return new Date(timestamp).toLocaleString("id-ID", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
 function topUpSaldo() {
-  const nominal = Number(inputNominal.value);
+  const nominal = Number(inputNominalTopUp.value);
   const bank = inputBank.value;
 
   if (isNaN(nominal)) {
     showPopup("Masukkan angka yang valid!", "error");
+    return;
   }
 
   if (!nominal || !bank) {
@@ -201,28 +237,39 @@ function topUpSaldo() {
 
   updateUserUI();
 
+  const newRiwayat = {
+    id: `HTR-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 1000)}`,
+    jenis: "topup",
+    nominal: nominal,
+    bank: bank,
+    waktu: Date.now(),
+  };
+
+  currentUser.riwayat.unshift(newRiwayat);
+
   showPopup("Berhasil Topup", "success");
 
   const formTopUp = document.querySelector("#topUpForm");
   formTopUp.style.display = "none";
   formTopUpTerbuka = false;
 
-  inputNominal.value = "";
+  inputNominalTopUp.value = "";
   inputBank.value = "";
 
+  renderRiwayat();
   saveUsers();
 }
 
-function tambahFavorit() {
-  const nominal = Number(inputNominal.value.trim());
-  const bankInput = inputBank.value.trim().toLowerCase();
+function tarikTunai() {
+  const nominal = Number(inputNominalTarik.value);
+  const tempatTarik = inputTempatTarik.value;
 
   if (isNaN(nominal)) {
     showPopup("Masukkan angka yang valid!", "error");
     return;
   }
 
-  if (!nominal || !bankInput) {
+  if (!nominal || !tempatTarik) {
     showPopup("Form tidak boleh kosong!", "error");
     return;
   }
@@ -232,30 +279,81 @@ function tambahFavorit() {
     return;
   }
 
-  const favExsist = currentUser.favorit.find((fav) => {
-    const favBankLower = fav.bank.trim().toLowerCase();
-    return fav.nominal === nominal && favBankLower === bankInput;
-  });
-
-  if(favExsist) {
-    showPopup('Sudah pernah ditambahkan ke favorit!', 'error')
-    return
+  if (nominal > currentUser.saldo) {
+    showPopup("Uang di saldomu kurang!", "error");
+    return;
   }
 
-  const newFavorit = {
-    id: `FAV-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 1000)}`,
+  currentUser.saldo -= nominal;
+
+  updateUserUI();
+
+  const newRiwayat = {
+    id: `HTR-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 1000)}`,
+    jenis: "tarikTunai",
     nominal: nominal,
-    bank: inputBank.value.trim(),
+    tempatTarik: tempatTarik,
+    waktu: Date.now(),
   };
 
-  currentUser.favorit.push(newFavorit);
+  currentUser.riwayat.unshift(newRiwayat);
 
+  showPopup("Tarik tunai berhasil", "success");
+
+  const formTarikTunai = document.querySelector("#tarikTunaiForm");
+  formTarikTunai.style.display = "none";
+  formTopUpTerbuka = false;
+
+  inputNominalTarik.value = "";
+  inputTempatTarik.value = "";
+
+  renderRiwayat();
   saveUsers();
-
-  showPopup("Berhasil di tambah ke Favorit", "success");
-  console.log(currentUser);
-  renderFavorit();
 }
+
+// function tambahFavorit() {
+//   const nominal = Number(inputNominal.value.trim());
+//   const bankInput = inputBank.value.trim().toLowerCase();
+
+//   if (isNaN(nominal)) {
+//     showPopup("Masukkan angka yang valid!", "error");
+//     return;
+//   }
+
+//   if (!nominal || !bankInput) {
+//     showPopup("Form tidak boleh kosong!", "error");
+//     return;
+//   }
+
+//   if (nominal < 10000) {
+//     showPopup("Minimal topUp Rp10.000", "error");
+//     return;
+//   }
+
+//   const favExsist = currentUser.favorit.find((fav) => {
+//     const favBankLower = fav.bank.trim().toLowerCase();
+//     return fav.nominal === nominal && favBankLower === bankInput;
+//   });
+
+//   if (favExsist) {
+//     showPopup("Sudah pernah ditambahkan ke favorit!", "error");
+//     return;
+//   }
+
+//   const newFavorit = {
+//     id: `FAV-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 1000)}`,
+//     nominal: nominal,
+//     bank: inputBank.value.trim(),
+//   };
+
+//   currentUser.favorit.push(newFavorit);
+
+//   saveUsers();
+
+//   showPopup("Berhasil di tambah ke Favorit", "success");
+//   console.log(currentUser);
+//   renderFavorit();
+// }
 
 function renderFavorit() {
   const listFavorit = document.querySelector("#listFavorit");
@@ -266,7 +364,7 @@ function renderFavorit() {
     html += `
       <li class="item-favorit" data-id="${fav.id}"> 
         <div class="box-text">
-          <p>${fav.bank}</p>
+          <p>${fav.lokTransaksi} - ${fav.jenis.toUpperCase()}</p>
           <p>Rp ${fav.nominal.toLocaleString("id-ID")}</p>
         </div>
         <button class="pakai-lagi">Pakai lagi</button>
@@ -278,6 +376,37 @@ function renderFavorit() {
   listFavorit.innerHTML =
     html ||
     `<li style="list-style-type: none; color: gray; font-size: 13px; font-weight: bold; font-style: italic;">Belum ada favorit</li> `;
+}
+
+function renderRiwayat() {
+  const listRiwayatUI = document.querySelector("#listRiwayat");
+
+  let html = "";
+
+  currentUser.riwayat.forEach((list) => {
+    const waktuDibaca = formatWaktu(list.waktu);
+
+    let tanda = list.jenis === "topup" ? "+" : "-";
+    let warnaNominal = list.jenis === "topup" ? "text-green" : "text-red";
+
+    html += `
+      <li class="item-riwayat ${list.jenis}" data-id="${list.id}">
+        <div>
+          <strong>${list.jenis.toUpperCase()}</strong> - ${list.bank || list?.tempatTarik}
+          <br>
+          <small>${waktuDibaca}</small>
+        </div>
+        <div>
+          <span class="${warnaNominal}">${tanda} ${list.nominal.toLocaleString("id-ID")}</span>
+          <button class="btn-tambah-fav" title="Simpan ke favorit"><i class="fa-regular fa-star"></i></button>
+        </div>     
+      </li>  
+    `;
+  });
+
+  listRiwayatUI.innerHTML =
+    html ||
+    `<li style="list-style-type: none; color: gray; font-size: 13px; font-weight: bold; font-style: italic;">Belum ada transaksi</li> `;
 }
 
 function hapusListFavorit(id) {
@@ -299,11 +428,52 @@ listFavorit.addEventListener("click", (e) => {
   if (e.target.classList.contains("pakai-lagi")) {
     const selectedFavorit = currentUser.favorit.find((fav) => fav.id === id);
 
-    if (selectedFavorit) {
-      inputNominal.value = selectedFavorit.nominal;
-      inputBank.value = selectedFavorit.bank;
-
+    if (selectedFavorit.jenis === "topup") {
+      inputNominalTopUp.value = selectedFavorit.nominal;
+      inputBank.value = selectedFavorit.lokTransaksi;
       showFormTopUp();
+    } else if (selectedFavorit.jenis === "tarikTunai") {
+      inputNominalTarik.value = selectedFavorit.nominal;
+      inputTempatTarik.value = selectedFavorit.lokTransaksi;
+      showFormTarikTunai();
+    }
+  }
+});
+
+const listRiwayatUI = document.querySelector("#listRiwayat");
+
+listRiwayatUI.addEventListener("click", (e) => {
+  if (e.target.classList.contains("btn-tambah-fav")) {
+    const itemRiwayat = e.target.closest(".item-riwayat");
+    const idRiwayat = itemRiwayat.dataset.id;
+
+    const transaksiTarget = currentUser.riwayat.find(
+      (item) => item.id === idRiwayat,
+    );
+
+    if (transaksiTarget) {
+      const sudahAda = currentUser.favorit.some((fav) => {
+        return fav.nominal === transaksiTarget.nominal && fav.lokTransaksi === (transaksiTarget.bank || transaksiTarget.tempatTarik);
+
+      });
+
+      if (sudahAda) {
+        showPopup("Transaksi ini sudah ada di favorit!", "error");
+        return;
+      }
+
+      currentUser.favorit.push({
+        id: `FAV-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 1000)}`,
+        jenis: transaksiTarget.jenis,
+        nominal: transaksiTarget.nominal,
+        lokTransaksi: transaksiTarget.bank || transaksiTarget.tempatTarik,
+      });
+
+      console.log(currentUser.favorit);
+
+      saveUsers();
+      renderFavorit();
+      showPopup("Berhasil ditambahkan ke favorit", "success");
     }
   }
 });
@@ -392,9 +562,10 @@ btnPindahLogin.addEventListener("click", () => {
   formLogin.style.display = "flex";
 });
 
-btnTambahFavorit.addEventListener("click", tambahFavorit);
+// btnTambahFavorit.addEventListener("click", tambahFavorit);
 
 btnTambahSaldo.addEventListener("click", topUpSaldo);
+btnTarikTunai.addEventListener("click", tarikTunai);
 
 btnBeranda.addEventListener("click", showBeranda);
 btnFavorit.addEventListener("click", showFavorit);

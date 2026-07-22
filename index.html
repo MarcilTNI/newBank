@@ -109,7 +109,14 @@
                 <i class="fa-solid fa-circle-plus"></i>
                 <p>Top Up</p>
               </div>
-              <div id="btnTarikTunai" class="btn-kelola">
+              <div
+                id="showTarikTunai"
+                class="btn-kelola"
+                onclick="
+                  event.preventDefault();
+                  showFormTarikTunai();
+                "
+              >
                 <i class="fa-solid fa-circle-arrow-down"></i>
                 <p>Tarik Tunai</p>
               </div>
@@ -188,9 +195,10 @@
 
       <!-- Main-content-Riwayat -->
       <div class="main-content-riwayat page-content">
-        <h1>Hello Riwayat</h1>
+        <h2>Riwayat Transaksi</h2>
+        <ul id="listRiwayat"></ul>
       </div>
-      
+
       <!-- Main-content-Profil -->
       <div class="main-content-profil page-content">
         <h1>Hello Profil</h1>
@@ -203,18 +211,49 @@
           type="number"
           name="nominal"
           placeholder="Nominal Topup"
-          id="inputNominal"
+          id="inputNominalTopUp"
         />
-        <input type="text" name="bank" placeholder="Bank" id="inputBank" />
+        <input type="text" name="bank" placeholder="Bank" class="inputBank" />
         <div class="box-btn-topUp">
           <button id="btnTambahSaldo">Tambah</button>
-          <button id="btnTambahFavorit">Tambah Kefavorit</button>
+          <!-- <button class="btnTambahFavorit">Tambah Kefavorit</button> -->
         </div>
         <button
           id="closeFormTopUp"
           onclick="
             event.preventDefault();
             closeFormTopUp();
+          "
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!--  -->
+      <div class="formTarikTunai" id="tarikTunaiForm">
+        <h3>Tarik Tunai</h3>
+        <input
+          type="number"
+          name="nominal"
+          placeholder="Nominal Topup"
+          id="inputNominalTarik"
+        />
+        <input
+          type="text"
+          name="tempat-tarik-tunai"
+          placeholder="Indomaret/Alfamart/dan lain-lain"
+          id="inputTempatTarik"
+        />
+        <p id="kodeTarik"></p>
+        <small style="font-weight: bold; font-style: italic;">Kasih kode ini ke kasir</small>
+        <div class="box-btn-tarik">
+          <button id="btnTarikTunai">Tarik</button>
+        </div>
+        <button
+          id="closeFormTarikTunai"
+          onclick="
+            event.preventDefault();
+            closeFormTarikTunai();
           "
         >
           <i class="fa-solid fa-xmark"></i>
@@ -243,7 +282,6 @@
           <p>Profil</p>
         </div>
       </div>
-
     </div>
 
     <script src="script.js"></script>

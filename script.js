@@ -35,25 +35,37 @@ const pageFavorit = document.querySelector(".main-content-favorit");
 const pageRiwayat = document.querySelector(".main-content-riwayat");
 const pageProfil = document.querySelector(".main-content-profil");
 
-const pageTransfer = document.querySelector('.section-content-transfer')
-const pagePaketData = document.querySelector('.section-content-paket-data')
-const pagePulsa = document.querySelector('.section-content-pulsa')
-const pagePLN = document.querySelector('.section-content-pln')
-const pageGame = document.querySelector('.section-content-game')
-const pageTransportasi = document.querySelector('.section-content-transportasi')
+const pageTransfer = document.querySelector(".section-content-transfer");
+const pagePaketData = document.querySelector(".section-content-paket-data");
+const pagePulsa = document.querySelector(".section-content-pulsa");
+const pagePLN = document.querySelector(".section-content-pln");
+const pageGame = document.querySelector(".section-content-game");
+const pageTransportasi = document.querySelector(
+  ".section-content-transportasi",
+);
 
-const contentTransferSamaBank = document.querySelector('.content-transfer-sama-bank')
-const contentTransferBedaBank = document.querySelector('.content-transfer-beda-bank')
-const pageKonfirmasiTransfer = document.querySelector('.page-konfirmasi-transfer')
+const contentTransferSamaBank = document.querySelector(
+  ".content-transfer-sama-bank",
+);
+const contentTransferBedaBank = document.querySelector(
+  ".content-transfer-beda-bank",
+);
+const pageKonfirmasiTransfer = document.querySelector(
+  ".page-konfirmasi-transfer",
+);
 
-const inputIdTujuan = document.querySelector('#inputIdTujuan')
-const inputNominalTransferSamaBank = document.querySelector('#inputNominalTransferSamaBank')
-const inputBankWalletTujuan = document.querySelector('#inputBankWalletTujuan')
-const noPenerimaTransfer = document.querySelector('#noPenerimaTransfer')
-const namaPenerimaTransfer = document.querySelector('#namaPenerimaTransfer')
-const inputNominalTransferBedaBank = document.querySelector('#inputNominalTransferBedaBank')
-const passwordKonfirmasi = document.querySelector('#passwordKonfirmasi')
-const transferBtn = document.querySelector('#transfer')
+const inputIdTujuan = document.querySelector("#inputIdTujuan");
+const inputNominalTransferSamaBank = document.querySelector(
+  "#inputNominalTransferSamaBank",
+);
+const inputBankWalletTujuan = document.querySelector("#inputBankWalletTujuan");
+const noPenerimaTransfer = document.querySelector("#noPenerimaTransfer");
+const namaPenerimaTransfer = document.querySelector("#namaPenerimaTransfer");
+const inputNominalTransferBedaBank = document.querySelector(
+  "#inputNominalTransferBedaBank",
+);
+const passwordKonfirmasi = document.querySelector("#passwordKonfirmasi");
+const transferBtn = document.querySelector("#transfer");
 
 const btnPindahLogin = document.querySelector("#pindahLogin");
 const btnPindahDaftar = document.querySelector("#pindahDaftar");
@@ -63,15 +75,15 @@ const btnFavorit = document.querySelector("#btnFavorit");
 const btnRiwayat = document.querySelector("#btnRiwayat");
 const btnProfil = document.querySelector("#btnProfil");
 
-const btnTransfer = document.querySelector('#btnTransfer')
-const btnPaketData = document.querySelector('#btnPaketData')
-const btnPulsa = document.querySelector('#btnPulsa')
-const btnPLN = document.querySelector('#btnPLN')
-const btnTopUpGame = document.querySelector('#btnTopUpGame')
-const btnTransportasi = document.querySelector('#btnTransportasi')
+const btnTransfer = document.querySelector("#btnTransfer");
+const btnPaketData = document.querySelector("#btnPaketData");
+const btnPulsa = document.querySelector("#btnPulsa");
+const btnPLN = document.querySelector("#btnPLN");
+const btnTopUpGame = document.querySelector("#btnTopUpGame");
+const btnTransportasi = document.querySelector("#btnTransportasi");
 
-const btnTransferSamaBank = document.querySelector('#btnTransferSamaBank')
-const btnTransferBedaBank = document.querySelector('#btnTransferBedaBank')
+const btnTransferSamaBank = document.querySelector("#btnTransferSamaBank");
+const btnTransferBedaBank = document.querySelector("#btnTransferBedaBank");
 
 const listFavorit = document.querySelector("#listFavorit");
 
@@ -108,22 +120,22 @@ function resetPageContentAll() {
 }
 
 function resetPageSectionAll() {
-  const pages = document.querySelectorAll('.page-section')
+  const pages = document.querySelectorAll(".page-section");
   pages.forEach((page) => {
-    page.style.display = 'none'
-  })
+    page.style.display = "none";
+  });
 }
 
 function resetJenisContentTransferAll() {
-  const pages = document.querySelectorAll('.content-transfer')
+  const pages = document.querySelectorAll(".content-transfer");
   pages.forEach((page) => {
-    page.style.display = 'none'
-  })
+    page.style.display = "none";
+  });
 
-  const buttons = document.querySelectorAll('.btn-tujuan')
+  const buttons = document.querySelectorAll(".btn-tujuan");
   buttons.forEach((btn) => {
-    btn.classList.remove('btn-tujuan-active')
-  })
+    btn.classList.remove("btn-tujuan-active");
+  });
 }
 
 function updateUserUI() {
@@ -364,7 +376,6 @@ function tarikTunai() {
 
 // }
 
-
 function renderFavorit() {
   const listFavorit = document.querySelector("#listFavorit");
 
@@ -463,8 +474,11 @@ listRiwayatUI.addEventListener("click", (e) => {
 
     if (transaksiTarget) {
       const sudahAda = currentUser.favorit.some((fav) => {
-        return fav.nominal === transaksiTarget.nominal && fav.lokTransaksi === (transaksiTarget.bank || transaksiTarget.tempatTarik);
-
+        return (
+          fav.nominal === transaksiTarget.nominal &&
+          fav.lokTransaksi ===
+            (transaksiTarget.bank || transaksiTarget.tempatTarik)
+        );
       });
 
       if (sudahAda) {
@@ -532,83 +546,83 @@ function showLoading(state) {
 }
 
 function showBeranda() {
-  resetPageContentAll()
-  resetPageSectionAll()
+  resetPageContentAll();
+  resetPageSectionAll();
   pageBeranda.style.display = "flex";
   btnBeranda.classList.add("active");
   // console.log("klik");
 }
 
 function showFavorit() {
-  resetPageContentAll()
-  resetPageSectionAll()
+  resetPageContentAll();
+  resetPageSectionAll();
   pageFavorit.style.display = "flex";
   btnFavorit.classList.add("active");
   // console.log("klik");
 }
 
 function showRiwayat() {
-  resetPageContentAll()
-  resetPageSectionAll()
+  resetPageContentAll();
+  resetPageSectionAll();
   pageRiwayat.style.display = "flex";
   btnRiwayat.classList.add("active");
   // console.log("klik");
 }
 
 function showProfil() {
-  resetPageContentAll()
-  resetPageSectionAll()
+  resetPageContentAll();
+  resetPageSectionAll();
   pageProfil.style.display = "flex";
   btnProfil.classList.add("active");
   // console.log("klik");
 }
 
 function showTransfer() {
-  resetPageContentAll()
-  resetPageSectionAll()
-  pageTransfer.style.display = 'flex'
+  resetPageContentAll();
+  resetPageSectionAll();
+  pageTransfer.style.display = "flex";
 }
 
 function showPaketData() {
-  resetPageContentAll()
-  resetPageSectionAll()
-  pagePaketData.style.display = 'flex'
+  resetPageContentAll();
+  resetPageSectionAll();
+  pagePaketData.style.display = "flex";
 }
 
 function showPulsa() {
-  resetPageContentAll()
-  resetPageSectionAll()
-  pagePulsa.style.display = 'flex'
+  resetPageContentAll();
+  resetPageSectionAll();
+  pagePulsa.style.display = "flex";
 }
 
 function showPLN() {
-  resetPageContentAll()
-  resetPageSectionAll()
-  pagePLN.style.display = 'flex'
+  resetPageContentAll();
+  resetPageSectionAll();
+  pagePLN.style.display = "flex";
 }
 
 function showTopUpGame() {
-  resetPageContentAll()
-  resetPageSectionAll()
-  pageGame.style.display = 'flex'
+  resetPageContentAll();
+  resetPageSectionAll();
+  pageGame.style.display = "flex";
 }
 
 function showTransportasi() {
-  resetPageContentAll()
-  resetPageSectionAll()
-  pageTransportasi.style.display = 'flex'
+  resetPageContentAll();
+  resetPageSectionAll();
+  pageTransportasi.style.display = "flex";
 }
 
 function showTransferSamaBank() {
-  resetJenisContentTransferAll()
-  contentTransferSamaBank.style.display = 'flex'
-  btnTransferSamaBank.classList.add('btn-tujuan-active')
+  resetJenisContentTransferAll();
+  contentTransferSamaBank.style.display = "flex";
+  btnTransferSamaBank.classList.add("btn-tujuan-active");
 }
 
 function showTransferBedaBank() {
-  resetJenisContentTransferAll()
-  contentTransferBedaBank.style.display = 'flex'
-  btnTransferBedaBank.classList.add('btn-tujuan-active')
+  resetJenisContentTransferAll();
+  contentTransferBedaBank.style.display = "flex";
+  btnTransferBedaBank.classList.add("btn-tujuan-active");
 }
 
 btnLogin.addEventListener("click", login);
@@ -634,14 +648,14 @@ btnFavorit.addEventListener("click", showFavorit);
 btnRiwayat.addEventListener("click", showRiwayat);
 btnProfil.addEventListener("click", showProfil);
 
-btnTransfer.addEventListener('click', showTransfer)
-btnPaketData.addEventListener('click', showPaketData)
-btnPulsa.addEventListener('click', showPulsa)
-btnPLN.addEventListener('click', showPLN)
-btnTopUpGame.addEventListener('click', showTopUpGame)
-btnTransportasi.addEventListener('click', showTransportasi)
+btnTransfer.addEventListener("click", showTransfer);
+btnPaketData.addEventListener("click", showPaketData);
+btnPulsa.addEventListener("click", showPulsa);
+btnPLN.addEventListener("click", showPLN);
+btnTopUpGame.addEventListener("click", showTopUpGame);
+btnTransportasi.addEventListener("click", showTransportasi);
 
-btnTransferSamaBank.addEventListener('click', showTransferSamaBank)
-btnTransferBedaBank.addEventListener('click', showTransferBedaBank)
+btnTransferSamaBank.addEventListener("click", showTransferSamaBank);
+btnTransferBedaBank.addEventListener("click", showTransferBedaBank);
 
 getUsers();

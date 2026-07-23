@@ -706,8 +706,8 @@ body {
   padding: 10px 15px;
   border: 2px solid var(--main-bg);
   border-radius: 8px;
-  background: transparent;
-  color: var(--side-bg); 
+  /* background: transparent; */
+  color: black; 
   transition: all .3s ease-out;
   cursor: pointer; 
 }

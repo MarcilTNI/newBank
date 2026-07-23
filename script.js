@@ -35,6 +35,13 @@ const pageFavorit = document.querySelector(".main-content-favorit");
 const pageRiwayat = document.querySelector(".main-content-riwayat");
 const pageProfil = document.querySelector(".main-content-profil");
 
+const pageTransfer = document.querySelector('.section-content-transfer')
+const pagePaketData = document.querySelector('.section-content-paket-data')
+const pagePulsa = document.querySelector('.section-content-pulsa')
+const pagePLN = document.querySelector('.section-content-pln')
+const pageGame = document.querySelector('.section-content-game')
+const pageTransportasi = document.querySelector('.section-content-transportasi')
+
 const btnPindahLogin = document.querySelector("#pindahLogin");
 const btnPindahDaftar = document.querySelector("#pindahDaftar");
 
@@ -42,6 +49,13 @@ const btnBeranda = document.querySelector("#btnBeranda");
 const btnFavorit = document.querySelector("#btnFavorit");
 const btnRiwayat = document.querySelector("#btnRiwayat");
 const btnProfil = document.querySelector("#btnProfil");
+
+const btnTransfer = document.querySelector('#btnTransfer')
+const btnPaketData = document.querySelector('#btnPaketData')
+const btnPulsa = document.querySelector('#btnPulsa')
+const btnPLN = document.querySelector('#btnPLN')
+const btnTopUpGame = document.querySelector('#btnTopUpGame')
+const btnTransportasi = document.querySelector('#btnTransportasi')
 
 const listFavorit = document.querySelector("#listFavorit");
 
@@ -65,7 +79,7 @@ function getUsers() {
   console.log(users);
 }
 
-function resetAll() {
+function resetPageContentAll() {
   const pages = document.querySelectorAll(".page-content");
   pages.forEach((page) => {
     page.style.display = "none";
@@ -75,6 +89,13 @@ function resetAll() {
   buttons.forEach((btn) => {
     btn.classList.remove("active");
   });
+}
+
+function resetPageSectionAll() {
+  const pages = document.querySelectorAll('.page-section')
+  pages.forEach((page) => {
+    page.style.display = 'none'
+  })
 }
 
 function updateUserUI() {
@@ -311,49 +332,6 @@ function tarikTunai() {
   saveUsers();
 }
 
-// function tambahFavorit() {
-//   const nominal = Number(inputNominal.value.trim());
-//   const bankInput = inputBank.value.trim().toLowerCase();
-
-//   if (isNaN(nominal)) {
-//     showPopup("Masukkan angka yang valid!", "error");
-//     return;
-//   }
-
-//   if (!nominal || !bankInput) {
-//     showPopup("Form tidak boleh kosong!", "error");
-//     return;
-//   }
-
-//   if (nominal < 10000) {
-//     showPopup("Minimal topUp Rp10.000", "error");
-//     return;
-//   }
-
-//   const favExsist = currentUser.favorit.find((fav) => {
-//     const favBankLower = fav.bank.trim().toLowerCase();
-//     return fav.nominal === nominal && favBankLower === bankInput;
-//   });
-
-//   if (favExsist) {
-//     showPopup("Sudah pernah ditambahkan ke favorit!", "error");
-//     return;
-//   }
-
-//   const newFavorit = {
-//     id: `FAV-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 1000)}`,
-//     nominal: nominal,
-//     bank: inputBank.value.trim(),
-//   };
-
-//   currentUser.favorit.push(newFavorit);
-
-//   saveUsers();
-
-//   showPopup("Berhasil di tambah ke Favorit", "success");
-//   console.log(currentUser);
-//   renderFavorit();
-// }
 
 function renderFavorit() {
   const listFavorit = document.querySelector("#listFavorit");
@@ -522,32 +500,73 @@ function showLoading(state) {
 }
 
 function showBeranda() {
-  resetAll();
+  resetPageContentAll()
+  resetPageSectionAll()
   pageBeranda.style.display = "flex";
   btnBeranda.classList.add("active");
   console.log("klik");
 }
 
 function showFavorit() {
-  resetAll();
+  resetPageContentAll()
+  resetPageSectionAll()
   pageFavorit.style.display = "flex";
   btnFavorit.classList.add("active");
   console.log("klik");
 }
 
 function showRiwayat() {
-  resetAll();
+  resetPageContentAll()
+  resetPageSectionAll()
   pageRiwayat.style.display = "flex";
   btnRiwayat.classList.add("active");
   console.log("klik");
 }
 
 function showProfil() {
-  resetAll();
+  resetPageContentAll()
+  resetPageSectionAll()
   pageProfil.style.display = "flex";
   btnProfil.classList.add("active");
   console.log("klik");
 }
+
+function showTransfer() {
+  resetPageContentAll()
+  resetPageSectionAll()
+  pageTransfer.style.display = 'flex'
+}
+
+function showPaketData() {
+  resetPageContentAll()
+  resetPageSectionAll()
+  pagePaketData.style.display = 'flex'
+}
+
+function showPulsa() {
+  resetPageContentAll()
+  resetPageSectionAll()
+  pagePulsa.style.display = 'flex'
+}
+
+function showPLN() {
+  resetPageContentAll()
+  resetPageSectionAll()
+  pagePLN.style.display = 'flex'
+}
+
+function showTopUpGame() {
+  resetPageContentAll()
+  resetPageSectionAll()
+  pageGame.style.display = 'flex'
+}
+
+function showTransportasi() {
+  resetPageContentAll()
+  resetPageSectionAll()
+  pageTransportasi.style.display = 'flex'
+}
+
 
 btnLogin.addEventListener("click", login);
 btnDaftar.addEventListener("click", daftar);
@@ -571,5 +590,12 @@ btnBeranda.addEventListener("click", showBeranda);
 btnFavorit.addEventListener("click", showFavorit);
 btnRiwayat.addEventListener("click", showRiwayat);
 btnProfil.addEventListener("click", showProfil);
+
+btnTransfer.addEventListener('click', showTransfer)
+btnPaketData.addEventListener('click', showPaketData)
+btnPulsa.addEventListener('click', showPulsa)
+btnPLN.addEventListener('click', showPLN)
+btnTopUpGame.addEventListener('click', showTopUpGame)
+btnTransportasi.addEventListener('click', showTransportasi)
 
 getUsers();

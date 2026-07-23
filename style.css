@@ -658,6 +658,60 @@ body {
 }
 
 
+/* Section-content Transfer */
+.section-content-transfer {
+  display: none;
+  width: 100%;
+  min-height: 100vh;
+  align-items: center;
+}
+
+
+/* Section-content Paket Data */
+.section-content-paket-data {
+  display: none;
+  width: 100%;
+  min-height: 100vh;
+  align-items: center;
+}
+
+
+/* Section-content Pulsa */
+.section-content-pulsa {
+  display: none;
+  width: 100%;
+  min-height: 100vh;
+  align-items: center;
+}
+
+
+/* Section-content PLN */
+.section-content-pln {
+  display: none;
+  width: 100%;
+  min-height: 100vh;
+  align-items: center;
+}
+
+
+/* Section-content Game */
+.section-content-game {
+  display: none;
+  width: 100%;
+  min-height: 100vh;
+  align-items: center;
+}
+
+
+/* Section-content Transportasi */
+.section-content-transportasi {
+  display: none;
+  width: 100%;
+  min-height: 100vh;
+  align-items: center;
+}
+
+
 /* Navbar Bottom */
 .nav-bar-bottom {
   position: fixed;

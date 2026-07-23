@@ -660,10 +660,124 @@ body {
 
 /* Section-content Transfer */
 .section-content-transfer {
+  position: absolute;
   display: none;
+  flex-direction: column;
   width: 100%;
   min-height: 100vh;
   align-items: center;
+}
+.section-content-transfer .top-section-transfer {
+  height: 40px;
+  width: 100%;
+  background: var(--side-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+.section-content-transfer .box-btn-pilih-transfer {
+  width: 100%;
+  height: auto;
+  padding: 10px 15px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px; 
+}
+.section-content-transfer .box-btn-pilih-transfer .box-btn-tujuan-transfer {
+  width: 100%;
+  height: auto;
+  gap: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.section-content-transfer .box-btn-pilih-transfer .box-btn-tujuan-transfer .btn-tujuan {
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: max-content;
+  height: 35px;
+  padding: 10px 15px;
+  border: 2px solid var(--main-bg);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--side-bg); 
+  transition: all .3s ease-out;
+  cursor: pointer; 
+}
+.section-content-transfer .box-btn-pilih-transfer .btn-tujuan:hover {
+  background: var(--side-two-bg);
+  color: black;
+}
+
+.btn-tujuan-active {
+  background: var(--side-two-bg);
+  color: black;
+}
+
+.content-transfer-sama-bank {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  height: auto;
+  border: 2px solid gray;
+  border-radius: 8px;
+  padding: 35px 20px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+  gap: 15px;
+}
+
+.content-transfer-sama-bank input,
+.content-transfer-beda-bank input {
+  width: 85%;
+  height: 35px;
+  font-size: 15px;
+  padding-left: 15px;
+  outline: none;
+  border: 2px solid gray;
+  border-radius: 3px;
+}
+
+.content-transfer-beda-bank {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  height: auto;
+  border: 2px solid gray;
+  border-radius: 8px;
+  padding: 35px 20px;
+  gap: 15px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+#transfer {
+  width: 100px;
+  height: 40px;
+  background: var(--side-two-bg);
+  font-weight: bold;
+  font-size: 16px;
+  border: 2px solid gray;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all .3s ease;
+}
+#transfer:hover {
+  transform: scale(.98);
+  box-shadow: 2px 5px 7px rgba(0,0,0,.3);
+}
+
+.page-konfirmasi-transfer {
+  display: none;
 }
 
 

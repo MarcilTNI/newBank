@@ -42,6 +42,19 @@ const pagePLN = document.querySelector('.section-content-pln')
 const pageGame = document.querySelector('.section-content-game')
 const pageTransportasi = document.querySelector('.section-content-transportasi')
 
+const contentTransferSamaBank = document.querySelector('.content-transfer-sama-bank')
+const contentTransferBedaBank = document.querySelector('.content-transfer-beda-bank')
+const pageKonfirmasiTransfer = document.querySelector('.page-konfirmasi-transfer')
+
+const inputIdTujuan = document.querySelector('#inputIdTujuan')
+const inputNominalTransferSamaBank = document.querySelector('#inputNominalTransferSamaBank')
+const inputBankWalletTujuan = document.querySelector('#inputBankWalletTujuan')
+const noPenerimaTransfer = document.querySelector('#noPenerimaTransfer')
+const namaPenerimaTransfer = document.querySelector('#namaPenerimaTransfer')
+const inputNominalTransferBedaBank = document.querySelector('#inputNominalTransferBedaBank')
+const passwordKonfirmasi = document.querySelector('#passwordKonfirmasi')
+const transferBtn = document.querySelector('#transfer')
+
 const btnPindahLogin = document.querySelector("#pindahLogin");
 const btnPindahDaftar = document.querySelector("#pindahDaftar");
 
@@ -56,6 +69,9 @@ const btnPulsa = document.querySelector('#btnPulsa')
 const btnPLN = document.querySelector('#btnPLN')
 const btnTopUpGame = document.querySelector('#btnTopUpGame')
 const btnTransportasi = document.querySelector('#btnTransportasi')
+
+const btnTransferSamaBank = document.querySelector('#btnTransferSamaBank')
+const btnTransferBedaBank = document.querySelector('#btnTransferBedaBank')
 
 const listFavorit = document.querySelector("#listFavorit");
 
@@ -95,6 +111,18 @@ function resetPageSectionAll() {
   const pages = document.querySelectorAll('.page-section')
   pages.forEach((page) => {
     page.style.display = 'none'
+  })
+}
+
+function resetJenisContentTransferAll() {
+  const pages = document.querySelectorAll('.content-transfer')
+  pages.forEach((page) => {
+    page.style.display = 'none'
+  })
+
+  const buttons = document.querySelectorAll('.btn-tujuan')
+  buttons.forEach((btn) => {
+    btn.classList.remove('btn-tujuan-active')
   })
 }
 
@@ -332,6 +360,10 @@ function tarikTunai() {
   saveUsers();
 }
 
+// function transfer() {
+
+// }
+
 
 function renderFavorit() {
   const listFavorit = document.querySelector("#listFavorit");
@@ -504,7 +536,7 @@ function showBeranda() {
   resetPageSectionAll()
   pageBeranda.style.display = "flex";
   btnBeranda.classList.add("active");
-  console.log("klik");
+  // console.log("klik");
 }
 
 function showFavorit() {
@@ -512,7 +544,7 @@ function showFavorit() {
   resetPageSectionAll()
   pageFavorit.style.display = "flex";
   btnFavorit.classList.add("active");
-  console.log("klik");
+  // console.log("klik");
 }
 
 function showRiwayat() {
@@ -520,7 +552,7 @@ function showRiwayat() {
   resetPageSectionAll()
   pageRiwayat.style.display = "flex";
   btnRiwayat.classList.add("active");
-  console.log("klik");
+  // console.log("klik");
 }
 
 function showProfil() {
@@ -528,7 +560,7 @@ function showProfil() {
   resetPageSectionAll()
   pageProfil.style.display = "flex";
   btnProfil.classList.add("active");
-  console.log("klik");
+  // console.log("klik");
 }
 
 function showTransfer() {
@@ -567,6 +599,17 @@ function showTransportasi() {
   pageTransportasi.style.display = 'flex'
 }
 
+function showTransferSamaBank() {
+  resetJenisContentTransferAll()
+  contentTransferSamaBank.style.display = 'flex'
+  btnTransferSamaBank.classList.add('btn-tujuan-active')
+}
+
+function showTransferBedaBank() {
+  resetJenisContentTransferAll()
+  contentTransferBedaBank.style.display = 'flex'
+  btnTransferBedaBank.classList.add('btn-tujuan-active')
+}
 
 btnLogin.addEventListener("click", login);
 btnDaftar.addEventListener("click", daftar);
@@ -597,5 +640,8 @@ btnPulsa.addEventListener('click', showPulsa)
 btnPLN.addEventListener('click', showPLN)
 btnTopUpGame.addEventListener('click', showTopUpGame)
 btnTransportasi.addEventListener('click', showTransportasi)
+
+btnTransferSamaBank.addEventListener('click', showTransferSamaBank)
+btnTransferBedaBank.addEventListener('click', showTransferBedaBank)
 
 getUsers();

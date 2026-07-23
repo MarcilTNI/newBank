@@ -204,10 +204,79 @@
         <h1>Hello Profil</h1>
       </div>
 
-
       <!-- Section content transfer -->
       <div class="section-content-transfer page-section">
-        <h2>Hello transfer</h2>
+        <div class="top-section-transfer">
+          <h2>Transfer</h2>
+        </div>
+        <div class="box-btn-pilih-transfer">
+          <p>Pilih tujuan transfer</p>
+          <div class="box-btn-tujuan-transfer">
+            <button class="btn-tujuan" id="btnTransferSamaBank">Sesama bank</button>
+            <button class="btn-tujuan" id="btnTransferBedaBank">Bank/Wallet lain</button>
+          </div>
+        </div>
+        
+        <div class="content-transfer-sama-bank content-transfer">
+          <input
+            type="text"
+            name="Id-unik"
+            placeholder="Id unik tujuan"
+            id="inputIdTujuan"
+          />
+          <input
+            type="number"
+            name="nominal-transfer"
+            placeholder="Nominal Transfer"
+            id="inputNominalTransferSamaBank"
+          />
+          <button id="transfer">Transfer</button>
+        </div>
+
+        <div class="content-transfer-beda-bank content-transfer">
+          <input
+            type="text"
+            name="bank/Wallet-tujuan"
+            placeholder="Bank/Wallet tujuan"
+            id="inputBankWalletTujuan"
+          />
+          <input
+            type="number"
+            name="norek/notelp"
+            placeholder="No. Rek/No. Telp"
+            id="noPenerimaTransfer"
+          />
+          <input 
+            type="text"
+            name="namaPenerima"
+            placeholder="Nama Penerima"
+            id="namaPenerimaTransfer"
+          >
+          <input
+            type="number"
+            name="nominal-transfer"
+            placeholder="Nominal Transfer"
+            id="inputNominalTransferBedaBank"
+          />
+          <small style="font-style: italic; font-weight: bold"
+            >Fee Rp2.500</small
+          >
+          <button id="transfer">Transfer</button>
+        </div>
+
+        <div class="page-konfirmasi-transfer">
+          <p id="bankWalletTujuan"></p>
+          <p id="kodeUnikAtauNorekNoTelp"></p>
+          <p id="nominalTransfer"></p>
+          <p>Password</p>
+          <input
+            type="password"
+            name="passwordUser"
+            placeholder="Password"
+            id="passwordKonfirmasi"
+          />
+          <button id="konfirmasiTransfer"></button>
+        </div>
       </div>
       <div class="section-content-paket-data page-section">
         <h2>Hello paket data</h2>
@@ -224,7 +293,6 @@
       <div class="section-content-transportasi page-section">
         <h2>Hello transportasi</h2>
       </div>
-      
 
       <!-- FormTopUp -->
       <div class="formTopUp" id="topUpForm">
@@ -267,7 +335,9 @@
           id="inputTempatTarik"
         />
         <p id="kodeTarik"></p>
-        <small style="font-weight: bold; font-style: italic;">Kasih kode ini ke kasir</small>
+        <small style="font-weight: bold; font-style: italic"
+          >Kasih kode ini ke kasir</small
+        >
         <div class="box-btn-tarik">
           <button id="btnTarikTunai">Tarik</button>
         </div>

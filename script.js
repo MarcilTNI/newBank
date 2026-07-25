@@ -44,28 +44,38 @@ const pageTransportasi = document.querySelector(
   ".section-content-transportasi",
 );
 
+const boxBtnTransfer = document.querySelector('.box-btn-pilih-transfer')
 const contentTransferSamaBank = document.querySelector(
   ".content-transfer-sama-bank",
 );
 const contentTransferBedaBank = document.querySelector(
   ".content-transfer-beda-bank",
 );
-const pageKonfirmasiTransfer = document.querySelector(
-  ".page-konfirmasi-transfer",
+const pageKonfirmasiTransferSamaBank = document.querySelector(
+  ".page-konfirmasi-transfer-sama-bank"
+);
+const pageKonfirmasiTransferBedaBank = document.querySelector(
+  ".page-konfirmasi-transfer-beda-bank"
 );
 
 const inputIdTujuan = document.querySelector("#inputIdTujuan");
 const inputNominalTransferSamaBank = document.querySelector(
-  "#inputNominalTransferSamaBank",
+  "#inputNominalTransferSamaBank"
 );
+
+
 const inputBankWalletTujuan = document.querySelector("#inputBankWalletTujuan");
-const noPenerimaTransfer = document.querySelector("#noPenerimaTransfer");
-const namaPenerimaTransfer = document.querySelector("#namaPenerimaTransfer");
+const inputNoPenerimaTransfer = document.querySelector("#noPenerimaTransfer");
+const inputNamaPenerimaTransfer = document.querySelector("#namaPenerimaTransfer");
 const inputNominalTransferBedaBank = document.querySelector(
   "#inputNominalTransferBedaBank",
 );
-const passwordKonfirmasi = document.querySelector("#passwordKonfirmasi");
-const transferBtn = document.querySelector("#transfer");
+const passwordKonfirmasiSamaBank = document.querySelector("#passwordKonfirmasiSamaBank");
+const passwordKonfirmasiBedaBank = document.querySelector("#passwordKonfirmasiBedaBank");
+const btnKonfirmasiTransferSamaBank = document.querySelector("#konfirmasiTransferSamaBank");
+const btnKonfirmasiTransferBedaBank = document.querySelector("#konfirmasiTransferBedaBank");
+const transferSamaBtn = document.querySelector("#transferSamaBank");
+const transferBedaBtn = document.querySelector("#transferBedaBank");
 
 const btnPindahLogin = document.querySelector("#pindahLogin");
 const btnPindahDaftar = document.querySelector("#pindahDaftar");
@@ -225,8 +235,9 @@ async function login() {
     renderFavorit();
     renderRiwayat();
     console.log(currentUser);
-  } catch (error) {
+  } catch (err) {
     showPopup("Nama atau Password salah!", "error");
+    console.log(err)
   } finally {
     showLoading(false);
   }
@@ -354,7 +365,7 @@ function tarikTunai() {
     jenis: "tarikTunai",
     nominal: nominal,
     tempatTarik: tempatTarik,
-    waktu: Date.now(),
+    waktu: Date.now()
   };
 
   currentUser.riwayat.unshift(newRiwayat);
@@ -372,9 +383,200 @@ function tarikTunai() {
   saveUsers();
 }
 
-// function transfer() {
+function funcTransferSamaBank() {
+  const idUnik = inputIdTujuan.value.trim().toString()
+  const nominal = Number(inputNominalTransferSamaBank.value)
+  const bankTujuan = document.querySelector('#bankTujuan')
+  const idUnikTujuan = document.querySelector('#idUnikTujuan')
+  const nominalTransfer = document.querySelector('#nominalTransfer')
+  const namaPenerima = document.querySelector('#namaTujuanTransfer1')
 
-// }
+  const idExsist = users.find(u => u.id === idUnik)
+
+  if (isNaN(nominal)) {
+    showPopup("Masukkan angka yang valid!", "error");
+    return;
+  }
+
+  if (!nominal || !idUnik) {
+    showPopup("Form tidak boleh kosong!", "error");
+    return;
+  }
+
+  if(!idExsist) {
+    showPopup('Tujuan transfer mu tidak ditemukan!', 'error')
+    return
+  }
+
+  if(idUnik === currentUser.id) {
+    showPopup('Tidak bisa transfer ke diri sendiri kocak!', 'error')
+    return
+  }
+
+  if (nominal > currentUser.saldo) {
+    showPopup("Uang di saldomu kurang!", "error");
+    return;
+  }
+
+  resetJenisContentTransferAll()
+  boxBtnTransfer.style.display = 'none'
+
+  bankTujuan.textContent = 'Bank Marcel'
+  namaPenerima.textContent = `Penerima: ${idExsist.nama}`
+  idUnikTujuan.textContent = `ID: ${idUnik}`
+  nominalTransfer.textContent = `Rp${nominal.toLocaleString('id-ID')}`
+  
+  showPageKonfirmasiTransferSamaBank()
+}
+
+function funcTransferBedaBank() {
+  const bankWalletTujuanTransfer = inputBankWalletTujuan.value.trim()
+  const noPenerimaTransfer = inputNoPenerimaTransfer.value.trim()
+  const namaPenerimaTransfer = inputNamaPenerimaTransfer.value.trim()
+  const nominal = Number(inputNominalTransferBedaBank.value.trim())
+
+  const bankWalletTujuan = document.querySelector('#bankWalletTujuan')
+  const namaPenerima = document.querySelector('#namaTujuanTransfer2')
+  const noRekAtauNoTelp = document.querySelector("#noRekNoTelp")
+  const nominalTransfer = document.querySelector("#nominalTransfer")
+
+  if (isNaN(nominal)) {
+    showPopup("Masukkan angka yang valid!", "error");
+    return;
+  }
+
+  if (!nominal || !noPenerimaTransfer || !namaPenerima || !bankWalletTujuanTransfer) {
+    showPopup("Form tidak boleh kosong!", "error");
+    return;
+  }
+
+  if(nominal > currentUser.saldo) {
+    showPopup('Uang di saldo mu kurang!', 'error')
+    return
+  }
+
+  resetJenisContentTransferAll()
+  boxBtnTransfer.style.display = 'none'
+
+  bankWalletTujuan.textContent = bankWalletTujuanTransfer
+  namaPenerima.textContent = `Penerima: ${namaPenerimaTransfer}`
+  noRekAtauNoTelp.textContent = `No: ${noPenerimaTransfer}`
+  nominalTransfer.textContent = `Rp${nominal.toLocaleString('id-ID')}`
+
+  showPageKonfirmasiTransferBedaBank()
+}
+
+function showPageKonfirmasiTransferSamaBank() {
+  pageKonfirmasiTransferSamaBank.style.display = 'flex'
+}
+function showPageKonfirmasiTransferBedaBank() {
+  pageKonfirmasiTransferBedaBank.style.display = 'flex'
+}
+
+function konfirmasiTransferSamaBank() {
+  const passwordInput = passwordKonfirmasiSamaBank.value.trim()
+  const idTujuan = inputIdTujuan.value.trim()
+  const nominal = Number(inputNominalTransferSamaBank.value)
+
+  if(!passwordInput) {
+    showPopup('Isi password konfirmasi!', 'error')
+    return
+  }
+
+  if(passwordInput !== currentUser.password) {
+    showPopup('Password salah!', 'error')
+    return
+  }
+
+  const userPenerima = users.find(u => u.id === idTujuan)
+  if(!userPenerima) {
+    showPopup('Akun penerima tidak ditemukan', 'error')
+    return 
+  }
+
+  currentUser.saldo -= nominal
+  userPenerima.saldo += nominal
+
+  const waktuTransaksi = Date.now()
+  const idRiwayatPengirim = `HTR-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 1000)}`
+
+  const riwayatPengirim = {
+    id: idRiwayatPengirim,
+    jenis: 'transferKeluar',
+    nominal: nominal,
+    bank: `Ke ${userPenerima.nama} (${userPenerima.id})`,
+    waktu: waktuTransaksi
+  }
+
+  const riwayatPenerima = {
+    id: `HTR-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 1000)}`,
+    jenis: 'transferMasuk',
+    nominal: nominal,
+    bank: `Dari ${currentUser.nama} (${currentUser.id})`,
+    waktu: waktuTransaksi
+  }
+
+  currentUser.riwayat.unshift(riwayatPengirim)
+  userPenerima.riwayat.unshift(riwayatPenerima)
+
+  updateUserUI()
+  renderRiwayat()
+  saveUsers()
+  showPopup('Transfer berhasil!', 'success')
+
+  passwordKonfirmasiSamaBank.value = ''
+  inputIdTujuan.value = ''
+  inputNominalTransferSamaBank.value = ''
+  
+  pageKonfirmasiTransferSamaBank.style.display = 'none'
+  boxBtnTransfer.style.display = 'flex'
+  showBeranda()
+}
+
+function konfirmasiTransferBedaBank() {
+  const passwordInput = passwordKonfirmasiBedaBank.value.trim()
+  const bankWalletTujuanTransfer = inputBankWalletTujuan.value.trim()
+  const noPenerimaTransfer = inputNoPenerimaTransfer.value.trim()
+  const namaPenerimaTransfer = inputNamaPenerimaTransfer.value.trim()
+  const nominal = Number(inputNominalTransferBedaBank.value.trim())
+
+  if(!passwordInput) {
+    showPopup('Isi Password konfirmasi!', 'error')
+    return
+  }
+
+  if(passwordInput !== currentUser.password) {
+    showPopup('Password salah!', 'error')
+    return
+  }
+
+  currentUser.saldo -= nominal
+
+  const newRiwayat = {
+    id: `HTR-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 1000)}`,
+    jenis: 'transferKeluar',
+    nominal: nominal,
+    bank: `Ke ${bankWalletTujuanTransfer} - (${noPenerimaTransfer})`,
+    waktu: Date.now()
+  }  
+
+  currentUser.riwayat.unshift(newRiwayat)
+
+  updateUserUI()
+  renderRiwayat()
+  saveUsers()
+  showPopup('Transfer berhasil!', 'success')
+
+  passwordKonfirmasiBedaBank.value = ''
+  inputNoPenerimaTransfer.value = ''
+  inputNominalTransferSamaBank.value = ''
+  inputNamaPenerimaTransfer.value = ''
+  inputNominalTransferBedaBank.value = ''
+  
+  pageKonfirmasiTransferBedaBank.style.display = 'none'
+  boxBtnTransfer.style.display = 'flex'
+  showBeranda()
+}
 
 function renderFavorit() {
   const listFavorit = document.querySelector("#listFavorit");
@@ -407,8 +609,8 @@ function renderRiwayat() {
   currentUser.riwayat.forEach((list) => {
     const waktuDibaca = formatWaktu(list.waktu);
 
-    let tanda = list.jenis === "topup" ? "+" : "-";
-    let warnaNominal = list.jenis === "topup" ? "text-green" : "text-red";
+    let tanda = (list.jenis === "topup" || list.jenis === 'transferMasuk') ? "+" : "-";
+    let warnaNominal = (list.jenis === "topup" || list.jenis === 'transferMasuk') ? "text-green" : "text-red";
 
     html += `
       <li class="item-riwayat ${list.jenis}" data-id="${list.id}">
@@ -657,5 +859,10 @@ btnTransportasi.addEventListener("click", showTransportasi);
 
 btnTransferSamaBank.addEventListener("click", showTransferSamaBank);
 btnTransferBedaBank.addEventListener("click", showTransferBedaBank);
+
+transferSamaBtn.addEventListener('click', funcTransferSamaBank)
+transferBedaBtn.addEventListener('click', funcTransferBedaBank)
+btnKonfirmasiTransferSamaBank.addEventListener('click', konfirmasiTransferSamaBank)
+btnKonfirmasiTransferBedaBank.addEventListener('click', konfirmasiTransferBedaBank)
 
 getUsers();

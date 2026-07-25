@@ -580,44 +580,57 @@ ul {
   height: auto;
   display: flex;
   align-items: center;
-  border-left: 4px solid greenyellow;
-  box-shadow:
-    2px 7px 6px rgba(0, 0, 0, 0.2),
-    inset 0 0 5px rgba(0, 0, 0, 0.2);
-  background: white;
-  border-radius: 8px;
+  justify-content: space-between;
   gap: 10px;
   margin-top: 10px;
-  padding: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #f8fafc;
+  border-left: 5px solid #22c55e;
+  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.06);
 }
 .main-content-favorit .item-favorit .box-text {
-  width: max-content;
-  height: auto;
-  padding: 5px;
-  gap: 5px;
-  margin-right: auto;
+  flex: 1;
+  min-width: 0;
+  padding: 2px 0;
   display: flex;
   flex-direction: column;
-  align-items: start;
-  font-size: 16px;
+  align-items: flex-start;
+  gap: 4px;
+  font-size: 15px;
+  color: #0f172a;
+}
+.main-content-favorit .item-favorit .box-text p {
+  margin: 0;
+  word-break: break-word;
+}
+.main-content-favorit .item-favorit .pakai-lagi,
+.main-content-favorit .item-favorit .hapus-favorit {
+  min-width: 78px;
+  height: 36px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: none;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
 }
 .main-content-favorit .item-favorit .pakai-lagi {
-  width: max-content;
-  height: 30px;
-  padding: 5px 10px;
-  background: var(--side-bg);
-  color: white;
-  border-radius: 8px;
-  border: 2px solid gray;
+  background: linear-gradient(135deg, var(--main-bg), #3b82f6);
 }
 .main-content-favorit .item-favorit .hapus-favorit {
-  width: max-content;
-  height: 30px;
-  padding: 5px 10px;
-  background: rgb(171, 0, 0);
-  color: white;
-  border-radius: 8px;
-  border: 2px solid gray;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+@media (max-width: 420px) {
+  .main-content-favorit .item-favorit {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .main-content-favorit .item-favorit .pakai-lagi,
+  .main-content-favorit .item-favorit .hapus-favorit {
+    width: 100%;
+  }
 }
 
 /* Main-content Riwayat */

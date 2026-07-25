@@ -83,8 +83,15 @@ const btnKonfirmasiTransferSamaBank = document.querySelector(
 const btnKonfirmasiTransferBedaBank = document.querySelector(
   "#konfirmasiTransferBedaBank",
 );
+const btnBatalTransferSamaBank = document.querySelector(
+  "#btnBatalTransferSamaBank",
+);
+const btnBatalTransferBedaBank = document.querySelector(
+  "#btnBatalTransferBedaBank",
+);
 const transferSamaBtn = document.querySelector("#transferSamaBank");
 const transferBedaBtn = document.querySelector("#transferBedaBank");
+const logoutBtn = document.querySelector("#logoutBtn");
 
 const btnPindahLogin = document.querySelector("#pindahLogin");
 const btnPindahDaftar = document.querySelector("#pindahDaftar");
@@ -158,9 +165,19 @@ function resetJenisContentTransferAll() {
 }
 
 function updateUserUI() {
+  if (!currentUser) return;
   namaUser.textContent = currentUser.nama;
   idUser.textContent = currentUser.id;
   saldo.textContent = currentUser.saldo.toLocaleString("id-ID");
+
+  const profileName = document.querySelector("#profileName");
+  const profileId = document.querySelector("#profileId");
+  const profileSaldo = document.querySelector("#profileSaldo");
+
+  if (profileName) profileName.textContent = currentUser.nama;
+  if (profileId) profileId.textContent = currentUser.id;
+  if (profileSaldo)
+    profileSaldo.textContent = `Rp ${currentUser.saldo.toLocaleString("id-ID")}`;
 }
 
 function daftar() {
@@ -487,6 +504,23 @@ function showPageKonfirmasiTransferBedaBank() {
   pageKonfirmasiTransferBedaBank.style.display = "flex";
 }
 
+function batalTransfer() {
+  passwordKonfirmasiSamaBank.value = "";
+  passwordKonfirmasiBedaBank.value = "";
+  inputIdTujuan.value = "";
+  inputNominalTransferSamaBank.value = "";
+  inputBankWalletTujuan.value = "";
+  inputNoPenerimaTransfer.value = "";
+  inputNamaPenerimaTransfer.value = "";
+  inputNominalTransferBedaBank.value = "";
+
+  pageKonfirmasiTransferSamaBank.style.display = "none";
+  pageKonfirmasiTransferBedaBank.style.display = "none";
+  boxBtnTransfer.style.display = "flex";
+  resetJenisContentTransferAll();
+  showBeranda();
+}
+
 function konfirmasiTransferSamaBank() {
   const passwordInput = passwordKonfirmasiSamaBank.value.trim();
   const idTujuan = inputIdTujuan.value.trim();
@@ -620,8 +654,17 @@ function renderRiwayat() {
 
   let html = "";
 
+  const labelJenis = {
+    topup: "Top Up",
+    tarikTunai: "Tarik Tunai",
+    transferKeluar: "Transfer Keluar",
+    transferMasuk: "Transfer Masuk",
+  };
+
   currentUser.riwayat.forEach((list) => {
     const waktuDibaca = formatWaktu(list.waktu);
+    const jenisLabel = labelJenis[list.jenis] || list.jenis;
+    const deskripsi = list.bank || list.tempatTarik || "Transaksi";
 
     let tanda =
       list.jenis === "topup" || list.jenis === "transferMasuk" ? "+" : "-";
@@ -632,16 +675,16 @@ function renderRiwayat() {
 
     html += `
       <li class="item-riwayat ${list.jenis}" data-id="${list.id}">
-        <div>
-          <strong>${list.jenis.toUpperCase()}</strong> - ${list.bank || list?.tempatTarik}
-          <br>
+        <div class="riwayat-info">
+          <strong>${jenisLabel}</strong>
+          <span class="riwayat-desk">${deskripsi}</span>
           <small>${waktuDibaca}</small>
         </div>
-        <div>
-          <span class="${warnaNominal}">${tanda} ${list.nominal.toLocaleString("id-ID")}</span>
+        <div class="riwayat-amount">
+          <span class="nominal ${warnaNominal}">${tanda} Rp ${list.nominal.toLocaleString("id-ID")}</span>
           <button class="btn-tambah-fav" title="Simpan ke favorit"><i class="fa-regular fa-star"></i></button>
-        </div>     
-      </li>  
+        </div>
+      </li>
     `;
   });
 
@@ -888,5 +931,16 @@ btnKonfirmasiTransferBedaBank.addEventListener(
   "click",
   konfirmasiTransferBedaBank,
 );
+btnBatalTransferSamaBank.addEventListener("click", batalTransfer);
+btnBatalTransferBedaBank.addEventListener("click", batalTransfer);
+
+logoutBtn.addEventListener("click", () => {
+  currentUser = null;
+  container.style.display = "none";
+  containerLoginDaftar.style.display = "flex";
+  inputNamaLogin.value = "";
+  inputPasswordLogin.value = "";
+  showPopup("Berhasil logout", "success");
+});
 
 getUsers();

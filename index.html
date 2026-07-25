@@ -201,7 +201,27 @@
 
       <!-- Main-content-Profil -->
       <div class="main-content-profil page-content">
-        <h1>Hello Profil</h1>
+        <div class="profile-card">
+          <div class="profile-avatar">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <h2 id="profileName">Nama Pengguna</h2>
+          <p id="profileId">ID</p>
+          <div class="profile-info-grid">
+            <div>
+              <span>Saldo</span>
+              <strong id="profileSaldo">Rp 0</strong>
+            </div>
+            <div>
+              <span>Status</span>
+              <strong>Aktif</strong>
+            </div>
+          </div>
+          <button id="logoutBtn" class="logout-btn">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+          </button>
+        </div>
       </div>
 
       <!-- Section content transfer -->
@@ -269,35 +289,49 @@
         </div>
 
         <div class="page-konfirmasi-transfer-sama-bank">
-          <p id="bankTujuan"></p>
-          <p id="namaTujuanTransfer1"></p>
-          <p id="idUnikTujuan"></p>
-          <hr />
-          <p id="nominalTransferSamaBank"></p>
-          <p>Password</p>
-          <input
-            type="password"
-            name="passwordUser"
-            placeholder="Password"
-            id="passwordKonfirmasiSamaBank"
-          />
-          <button id="konfirmasiTransferSamaBank">Konfirmasi</button>
+          <div class="transfer-confirm-card">
+            <p id="bankTujuan"></p>
+            <p id="namaTujuanTransfer1"></p>
+            <p id="idUnikTujuan"></p>
+            <hr />
+            <p id="nominalTransferSamaBank"></p>
+            <p>Password</p>
+            <input
+              type="password"
+              name="passwordUser"
+              placeholder="Password"
+              id="passwordKonfirmasiSamaBank"
+            />
+            <div class="confirm-actions">
+              <button id="btnBatalTransferSamaBank" class="btn-cancel-transfer">
+                Batal
+              </button>
+              <button id="konfirmasiTransferSamaBank">Konfirmasi</button>
+            </div>
+          </div>
         </div>
 
         <div class="page-konfirmasi-transfer-beda-bank">
-          <p id="bankWalletTujuan"></p>
-          <p id="namaTujuanTransfer2"></p>
-          <p id="noRekNoTelp"></p>
-          <hr />
-          <p id="nominalTransferBedaBank"></p>
-          <p>Password</p>
-          <input
-            type="password"
-            name="passwordUser"
-            placeholder="Password"
-            id="passwordKonfirmasiBedaBank"
-          />
-          <button id="konfirmasiTransferBedaBank">Konfirmasi</button>
+          <div class="transfer-confirm-card">
+            <p id="bankWalletTujuan"></p>
+            <p id="namaTujuanTransfer2"></p>
+            <p id="noRekNoTelp"></p>
+            <hr />
+            <p id="nominalTransferBedaBank"></p>
+            <p>Password</p>
+            <input
+              type="password"
+              name="passwordUser"
+              placeholder="Password"
+              id="passwordKonfirmasiBedaBank"
+            />
+            <div class="confirm-actions">
+              <button id="btnBatalTransferBedaBank" class="btn-cancel-transfer">
+                Batal
+              </button>
+              <button id="konfirmasiTransferBedaBank">Konfirmasi</button>
+            </div>
+          </div>
         </div>
       </div>
 

@@ -1,6 +1,8 @@
+// Elemen global untuk indikator loading dan notifikasi aplikasi.
 const load = document.querySelector(".loading");
 const popup = document.querySelector(".popup");
 
+// Wadah utama aplikasi dan area autentikasi pengguna.
 const container = document.querySelector(".container");
 const containerLoginDaftar = document.querySelector(".login-register");
 
@@ -34,6 +36,7 @@ const pageFavorit = document.querySelector(".main-content-favorit");
 const pageRiwayat = document.querySelector(".main-content-riwayat");
 const pageProfil = document.querySelector(".main-content-profil");
 
+// Referensi halaman atau section yang dikontrol melalui navigasi aplikasi.
 const pageTransfer = document.querySelector(".section-content-transfer");
 const pagePaketData = document.querySelector(".section-content-paket-data");
 const pagePulsa = document.querySelector(".section-content-pulsa");
@@ -43,6 +46,7 @@ const pageTransportasi = document.querySelector(
   ".section-content-transportasi",
 );
 
+// Elemen utama untuk memilih jenis transfer dan menampilkan konfirmasi.
 const boxBtnTransfer = document.querySelector(".box-btn-pilih-transfer");
 const contentTransferSamaBank = document.querySelector(
   ".content-transfer-sama-bank",
@@ -115,20 +119,26 @@ const listFavorit = document.querySelector("#listFavorit");
 const showTopUp = document.querySelector("#showTopUp");
 const showTarikTunai = document.querySelector("#showTarikTunai");
 
+// Seluruh akun yang tersimpan dan akun yang sedang login.
 let users = [];
 let currentUser = null;
+
+// Timer untuk menghapus notifikasi popup secara otomatis.
 let popupTimer;
 
+/** Menyimpan seluruh data pengguna ke localStorage. */
 function saveUsers() {
   localStorage.setItem("users", JSON.stringify(users));
 }
 
+/** Mengambil data pengguna dari localStorage saat aplikasi dimulai. */
 function getUsers() {
   const data = JSON.parse(localStorage.getItem("users")) || [];
 
   users = data;
 }
 
+/** Menyembunyikan semua halaman utama dan mereset navbar aktif. */
 function resetPageContentAll() {
   const pages = document.querySelectorAll(".page-content");
   pages.forEach((page) => {
@@ -141,6 +151,7 @@ function resetPageContentAll() {
   });
 }
 
+/** Menyembunyikan seluruh section fitur di dalam halaman utama. */
 function resetPageSectionAll() {
   const pages = document.querySelectorAll(".page-section");
   pages.forEach((page) => {
@@ -148,6 +159,7 @@ function resetPageSectionAll() {
   });
 }
 
+/** Mereset pilihan jenis transfer dan tombol tujuan yang aktif. */
 function resetJenisContentTransferAll() {
   const pages = document.querySelectorAll(".content-transfer");
   pages.forEach((page) => {
@@ -160,6 +172,7 @@ function resetJenisContentTransferAll() {
   });
 }
 
+/** Menyegarkan nama, ID, saldo, dan data profil pengguna aktif. */
 function updateUserUI() {
   if (!currentUser) return;
   namaUser.textContent = currentUser.nama;
@@ -176,6 +189,7 @@ function updateUserUI() {
     profileSaldo.textContent = `Rp ${currentUser.saldo.toLocaleString("id-ID")}`;
 }
 
+/** Mendaftarkan akun baru setelah memvalidasi data dan password. */
 function daftar() {
   const username = inputNamaDaftar.value.trim();
   const pass1 = inputPasswordDaftar1.value.trim();
@@ -222,6 +236,7 @@ function daftar() {
   getUsers();
 }
 
+/** Memvalidasi kredensial lalu membuka aplikasi untuk pengguna yang berhasil login. */
 async function login() {
   const username = inputNamaLogin.value.trim();
   const pass = inputPasswordLogin.value.trim();
@@ -263,11 +278,13 @@ async function login() {
   }
 }
 
+/** Membuka form top up. */
 function showFormTopUp() {
   const formTopUp = document.querySelector("#topUpForm");
   formTopUp.style.display = "flex";
 }
 
+/** Menutup form top up dan mereset inputnya. */
 function closeFormTopUp() {
   const formTopUp = document.querySelector("#topUpForm");
   formTopUp.style.display = "none";
@@ -276,12 +293,14 @@ function closeFormTopUp() {
   inputBank.value = "";
 }
 
+/** Membuka form tarik tunai serta membuat kode transaksi baru. */
 function showFormTarikTunai() {
   const formTarikTunai = document.querySelector("#tarikTunaiForm");
   formTarikTunai.style.display = "flex";
   kodeTarik.textContent = `TRK-${Date.now().toString().slice(-5)}-${Math.floor(Math.random() * 1000)}`;
 }
 
+/** Menutup form tarik tunai dan mereset inputnya. */
 function closeFormTarikTunai() {
   const formTarikTunai = document.querySelector("#tarikTunaiForm");
   formTarikTunai.style.display = "none";
@@ -290,6 +309,7 @@ function closeFormTarikTunai() {
   inputTempatTarik.value = "";
 }
 
+/** Mengubah timestamp transaksi menjadi format tanggal dan waktu Indonesia. */
 function formatWaktu(timestamp) {
   return new Date(timestamp).toLocaleString("id-ID", {
     day: "2-digit",
@@ -300,6 +320,7 @@ function formatWaktu(timestamp) {
   });
 }
 
+/** Menambah saldo pengguna dan mencatat transaksi top up. */
 function topUpSaldo() {
   const nominal = Number(inputNominalTopUp.value);
   const bank = inputBank.value;
@@ -345,6 +366,7 @@ function topUpSaldo() {
   saveUsers();
 }
 
+/** Mengurangi saldo pengguna dan mencatat transaksi tarik tunai. */
 function tarikTunai() {
   const nominal = Number(inputNominalTarik.value);
   const tempatTarik = inputTempatTarik.value;
@@ -395,6 +417,7 @@ function tarikTunai() {
   saveUsers();
 }
 
+/** Memvalidasi transfer sesama bank lalu menampilkan halaman konfirmasi. */
 function funcTransferSamaBank() {
   const idUnik = inputIdTujuan.value.trim().toString();
   const nominal = Number(inputNominalTransferSamaBank.value);
@@ -441,6 +464,7 @@ function funcTransferSamaBank() {
   showPageKonfirmasiTransferSamaBank();
 }
 
+/** Memvalidasi transfer beda bank, termasuk fee, lalu menampilkan konfirmasi. */
 function funcTransferBedaBank() {
   const bankWalletTujuanTransfer = inputBankWalletTujuan.value.trim();
   const noPenerimaTransfer = inputNoPenerimaTransfer.value.trim();
@@ -484,13 +508,16 @@ function funcTransferBedaBank() {
   showPageKonfirmasiTransferBedaBank();
 }
 
+/** Menampilkan halaman konfirmasi transfer sesama bank. */
 function showPageKonfirmasiTransferSamaBank() {
   pageKonfirmasiTransferSamaBank.style.display = "flex";
 }
+/** Menampilkan halaman konfirmasi transfer beda bank. */
 function showPageKonfirmasiTransferBedaBank() {
   pageKonfirmasiTransferBedaBank.style.display = "flex";
 }
 
+/** Membatalkan transfer dan mengembalikan form ke keadaan awal. */
 function batalTransfer() {
   passwordKonfirmasiSamaBank.value = "";
   passwordKonfirmasiBedaBank.value = "";
@@ -508,6 +535,7 @@ function batalTransfer() {
   showBeranda();
 }
 
+/** Memverifikasi password lalu memindahkan saldo antar pengguna dalam bank yang sama. */
 function konfirmasiTransferSamaBank() {
   const passwordInput = passwordKonfirmasiSamaBank.value.trim();
   const idTujuan = inputIdTujuan.value.trim();
@@ -569,6 +597,7 @@ function konfirmasiTransferSamaBank() {
   showBeranda();
 }
 
+/** Memverifikasi password, memotong fee, dan mencatat transfer ke bank lain. */
 function konfirmasiTransferBedaBank() {
   const passwordInput = passwordKonfirmasiBedaBank.value.trim();
   const bankWalletTujuanTransfer = inputBankWalletTujuan.value.trim();
@@ -618,6 +647,7 @@ function konfirmasiTransferBedaBank() {
   showBeranda();
 }
 
+/** Menampilkan daftar transaksi favorit pengguna aktif. */
 function renderFavorit() {
   const listFavorit = document.querySelector("#listFavorit");
 
@@ -641,6 +671,7 @@ function renderFavorit() {
     `<li style="list-style-type: none; color: gray; font-size: 13px; font-weight: bold; font-style: italic;">Belum ada favorit</li> `;
 }
 
+/** Menampilkan riwayat transaksi beserta nominal dan tombol favorit. */
 function renderRiwayat() {
   const listRiwayatUI = document.querySelector("#listRiwayat");
 
@@ -692,12 +723,14 @@ function renderRiwayat() {
     `<li style="list-style-type: none; color: gray; font-size: 13px; font-weight: bold; font-style: italic;">Belum ada transaksi</li> `;
 }
 
+/** Menghapus transaksi favorit berdasarkan ID. */
 function hapusListFavorit(id) {
   currentUser.favorit = currentUser.favorit.filter((fav) => fav.id !== id);
   renderFavorit();
   saveUsers();
 }
 
+// Menangani aksi hapus dan pakai lagi pada daftar favorit.
 listFavorit.addEventListener("click", (e) => {
   const itemFavorit = e.target.closest(".item-favorit");
   if (!itemFavorit) return;
@@ -737,6 +770,7 @@ listFavorit.addEventListener("click", (e) => {
 
 const listRiwayatUI = document.querySelector("#listRiwayat");
 
+// Menambahkan transaksi dari riwayat ke daftar favorit.
 listRiwayatUI.addEventListener("click", (e) => {
   if (e.target.closest(".btn-tambah-fav")) {
     const itemRiwayat = e.target.closest(".item-riwayat");
@@ -778,6 +812,7 @@ listRiwayatUI.addEventListener("click", (e) => {
   }
 });
 
+/** Menampilkan pesan sementara dengan tipe success atau error. */
 function showPopup(message, type) {
   popup.textContent = message;
 
@@ -792,6 +827,7 @@ function showPopup(message, type) {
   }, 2000);
 }
 
+/** Menampilkan atau menyembunyikan indikator loading dan menonaktifkan kontrol login. */
 function showLoading(state) {
   if (state) {
     load.innerHTML = `
@@ -821,6 +857,7 @@ function showLoading(state) {
   }
 }
 
+/** Membuka halaman beranda. */
 function showBeranda() {
   resetPageContentAll();
   resetPageSectionAll();
@@ -828,6 +865,7 @@ function showBeranda() {
   btnBeranda.classList.add("active");
 }
 
+/** Membuka halaman transaksi favorit. */
 function showFavorit() {
   resetPageContentAll();
   resetPageSectionAll();
@@ -835,6 +873,7 @@ function showFavorit() {
   btnFavorit.classList.add("active");
 }
 
+/** Membuka halaman riwayat transaksi. */
 function showRiwayat() {
   resetPageContentAll();
   resetPageSectionAll();
@@ -842,6 +881,7 @@ function showRiwayat() {
   btnRiwayat.classList.add("active");
 }
 
+/** Membuka halaman profil pengguna. */
 function showProfil() {
   resetPageContentAll();
   resetPageSectionAll();
@@ -849,48 +889,56 @@ function showProfil() {
   btnProfil.classList.add("active");
 }
 
+/** Membuka section transfer. */
 function showTransfer() {
   resetPageContentAll();
   resetPageSectionAll();
   pageTransfer.style.display = "flex";
 }
 
+/** Membuka section paket data. */
 function showPaketData() {
   resetPageContentAll();
   resetPageSectionAll();
   pagePaketData.style.display = "flex";
 }
 
+/** Membuka section pulsa. */
 function showPulsa() {
   resetPageContentAll();
   resetPageSectionAll();
   pagePulsa.style.display = "flex";
 }
 
+/** Membuka section pembayaran PLN. */
 function showPLN() {
   resetPageContentAll();
   resetPageSectionAll();
   pagePLN.style.display = "flex";
 }
 
+/** Membuka section top up game. */
 function showTopUpGame() {
   resetPageContentAll();
   resetPageSectionAll();
   pageGame.style.display = "flex";
 }
 
+/** Membuka section transportasi. */
 function showTransportasi() {
   resetPageContentAll();
   resetPageSectionAll();
   pageTransportasi.style.display = "flex";
 }
 
+/** Menampilkan form transfer sesama bank. */
 function showTransferSamaBank() {
   resetJenisContentTransferAll();
   contentTransferSamaBank.style.display = "flex";
   btnTransferSamaBank.classList.add("btn-tujuan-active");
 }
 
+/** Menampilkan form transfer beda bank atau wallet lain. */
 function showTransferBedaBank() {
   resetJenisContentTransferAll();
   contentTransferBedaBank.style.display = "flex";
@@ -900,11 +948,13 @@ function showTransferBedaBank() {
 btnLogin.addEventListener("click", login);
 btnDaftar.addEventListener("click", daftar);
 
+// Berpindah dari form login ke form pendaftaran.
 btnPindahDaftar.addEventListener("click", () => {
   formLogin.style.display = "none";
   formDaftar.style.display = "flex";
 });
 
+// Berpindah dari form pendaftaran ke form login.
 btnPindahLogin.addEventListener("click", () => {
   formDaftar.style.display = "none";
   formLogin.style.display = "flex";
@@ -941,6 +991,7 @@ btnKonfirmasiTransferBedaBank.addEventListener(
 btnBatalTransferSamaBank.addEventListener("click", batalTransfer);
 btnBatalTransferBedaBank.addEventListener("click", batalTransfer);
 
+// Menghapus sesi aktif dan mengembalikan pengguna ke halaman login.
 logoutBtn.addEventListener("click", () => {
   currentUser = null;
   container.style.display = "none";

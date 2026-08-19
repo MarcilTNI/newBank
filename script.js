@@ -25,7 +25,6 @@ const inputBank = document.querySelector(".inputBank");
 const inputTempatTarik = document.querySelector("#inputTempatTarik");
 const btnTambahSaldo = document.querySelector("#btnTambahSaldo");
 const btnTarikTunai = document.querySelector("#btnTarikTunai");
-// const btnTambahFavorit = document.querySelector(".btnTambahFavorit");
 
 const btnLogin = document.querySelector("#btnLogin");
 const btnDaftar = document.querySelector("#btnDaftar");
@@ -118,8 +117,6 @@ const showTarikTunai = document.querySelector("#showTarikTunai");
 
 let users = [];
 let currentUser = null;
-let formTopUpTerbuka = false;
-let formTarikTunaiTerbuka = false;
 let popupTimer;
 
 function saveUsers() {
@@ -130,7 +127,6 @@ function getUsers() {
   const data = JSON.parse(localStorage.getItem("users")) || [];
 
   users = data;
-  console.log(users);
 }
 
 function resetPageContentAll() {
@@ -260,27 +256,21 @@ async function login() {
     updateUserUI();
     renderFavorit();
     renderRiwayat();
-    console.log(currentUser);
   } catch (err) {
     showPopup("Nama atau Password salah!", "error");
-    console.log(err);
   } finally {
     showLoading(false);
   }
-
-  // console.log(users.includes(currentUser))
 }
 
 function showFormTopUp() {
   const formTopUp = document.querySelector("#topUpForm");
   formTopUp.style.display = "flex";
-  formTopUpTerbuka = true;
 }
 
 function closeFormTopUp() {
   const formTopUp = document.querySelector("#topUpForm");
   formTopUp.style.display = "none";
-  formTopUpTerbuka = false;
 
   inputNominalTopUp.value = "";
   inputBank.value = "";
@@ -289,14 +279,12 @@ function closeFormTopUp() {
 function showFormTarikTunai() {
   const formTarikTunai = document.querySelector("#tarikTunaiForm");
   formTarikTunai.style.display = "flex";
-  formTarikTunaiTerbuka = true;
   kodeTarik.textContent = `TRK-${Date.now().toString().slice(-5)}-${Math.floor(Math.random() * 1000)}`;
 }
 
 function closeFormTarikTunai() {
   const formTarikTunai = document.querySelector("#tarikTunaiForm");
   formTarikTunai.style.display = "none";
-  formTopUpTerbuka = false;
 
   inputNominalTarik.value = "";
   inputTempatTarik.value = "";
@@ -349,7 +337,6 @@ function topUpSaldo() {
 
   const formTopUp = document.querySelector("#topUpForm");
   formTopUp.style.display = "none";
-  formTopUpTerbuka = false;
 
   inputNominalTopUp.value = "";
   inputBank.value = "";
@@ -400,7 +387,6 @@ function tarikTunai() {
 
   const formTarikTunai = document.querySelector("#tarikTunaiForm");
   formTarikTunai.style.display = "none";
-  formTopUpTerbuka = false;
 
   inputNominalTarik.value = "";
   inputTempatTarik.value = "";
@@ -424,7 +410,7 @@ function funcTransferSamaBank() {
     return;
   }
 
-  if (!nominal || !idUnik) {
+  if (nominal <= 0 || !idUnik) {
     showPopup("Form tidak boleh kosong!", "error");
     return;
   }
@@ -472,16 +458,17 @@ function funcTransferBedaBank() {
   }
 
   if (
-    !nominal ||
+    nominal <= 0 ||
     !noPenerimaTransfer ||
-    !namaPenerima ||
+    !namaPenerimaTransfer ||
     !bankWalletTujuanTransfer
   ) {
     showPopup("Form tidak boleh kosong!", "error");
     return;
   }
 
-  if (nominal > currentUser.saldo) {
+  const biayaTransfer = 2500;
+  if (nominal + biayaTransfer > currentUser.saldo) {
     showPopup("Uang di saldo mu kurang!", "error");
     return;
   }
@@ -492,7 +479,7 @@ function funcTransferBedaBank() {
   bankWalletTujuan.textContent = bankWalletTujuanTransfer;
   namaPenerima.textContent = `Penerima: ${namaPenerimaTransfer}`;
   noRekAtauNoTelp.textContent = `No: ${noPenerimaTransfer}`;
-  nominalTransfer.textContent = `Rp${nominal.toLocaleString("id-ID")}`;
+  nominalTransfer.textContent = `Rp${nominal.toLocaleString("id-ID")} + Fee Rp${biayaTransfer.toLocaleString("id-ID")}`;
 
   showPageKonfirmasiTransferBedaBank();
 }
@@ -550,10 +537,11 @@ function konfirmasiTransferSamaBank() {
 
   const riwayatPengirim = {
     id: idRiwayatPengirim,
-    jenis: "transferKeluar",
+    jenis: "transferKeluarSamaBank",
     nominal: nominal,
     bank: `Ke ${userPenerima.nama} (${userPenerima.id})`,
     waktu: waktuTransaksi,
+    idUnikTujuan: idTujuan,
   };
 
   const riwayatPenerima = {
@@ -587,6 +575,7 @@ function konfirmasiTransferBedaBank() {
   const noPenerimaTransfer = inputNoPenerimaTransfer.value.trim();
   const namaPenerimaTransfer = inputNamaPenerimaTransfer.value.trim();
   const nominal = Number(inputNominalTransferBedaBank.value.trim());
+  const biayaTransfer = 2500;
 
   if (!passwordInput) {
     showPopup("Isi Password konfirmasi!", "error");
@@ -598,14 +587,18 @@ function konfirmasiTransferBedaBank() {
     return;
   }
 
-  currentUser.saldo -= nominal;
+  currentUser.saldo -= nominal + biayaTransfer;
 
   const newRiwayat = {
     id: `HTR-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 1000)}`,
-    jenis: "transferKeluar",
+    jenis: "transferKeluarBedaBank",
     nominal: nominal,
+    biaya: biayaTransfer,
     bank: `Ke ${bankWalletTujuanTransfer} - (${noPenerimaTransfer})`,
     waktu: Date.now(),
+    tujuan: bankWalletTujuanTransfer,
+    noPenerima: noPenerimaTransfer,
+    namaPenerima: namaPenerimaTransfer,
   };
 
   currentUser.riwayat.unshift(newRiwayat);
@@ -617,7 +610,6 @@ function konfirmasiTransferBedaBank() {
 
   passwordKonfirmasiBedaBank.value = "";
   inputNoPenerimaTransfer.value = "";
-  inputNominalTransferSamaBank.value = "";
   inputNamaPenerimaTransfer.value = "";
   inputNominalTransferBedaBank.value = "";
 
@@ -657,7 +649,8 @@ function renderRiwayat() {
   const labelJenis = {
     topup: "Top Up",
     tarikTunai: "Tarik Tunai",
-    transferKeluar: "Transfer Keluar",
+    transferKeluarSamaBank: "Transfer Keluar Sesama Bank",
+    transferKeluarBedaBank: "Transfer Keluar Beda Bank",
     transferMasuk: "Transfer Masuk",
   };
 
@@ -682,7 +675,13 @@ function renderRiwayat() {
         </div>
         <div class="riwayat-amount">
           <span class="nominal ${warnaNominal}">${tanda} Rp ${list.nominal.toLocaleString("id-ID")}</span>
-          <button class="btn-tambah-fav" title="Simpan ke favorit"><i class="fa-regular fa-star"></i></button>
+          ${
+            list.jenis === "transferMasuk"
+              ? ""
+              : `<button class="btn-tambah-fav" title="Simpan ke favorit">
+                <i class="fa-regular fa-star"></i>
+              </button>`
+          }
         </div>
       </li>
     `;
@@ -720,6 +719,18 @@ listFavorit.addEventListener("click", (e) => {
       inputNominalTarik.value = selectedFavorit.nominal;
       inputTempatTarik.value = selectedFavorit.lokTransaksi;
       showFormTarikTunai();
+    } else if (selectedFavorit.jenis === "transferKeluarSamaBank") {
+      inputIdTujuan.value = selectedFavorit.idUnikTujuan;
+      inputNominalTransferSamaBank.value = selectedFavorit.nominal;
+      showTransfer();
+      showTransferSamaBank();
+    } else if (selectedFavorit.jenis === "transferKeluarBedaBank") {
+      inputBankWalletTujuan.value = selectedFavorit.tujuan;
+      inputNoPenerimaTransfer.value = selectedFavorit.noPenerima;
+      inputNamaPenerimaTransfer.value = selectedFavorit.namaPenerima;
+      inputNominalTransferBedaBank.value = selectedFavorit.nominal;
+      showTransfer();
+      showTransferBedaBank();
     }
   }
 });
@@ -727,7 +738,7 @@ listFavorit.addEventListener("click", (e) => {
 const listRiwayatUI = document.querySelector("#listRiwayat");
 
 listRiwayatUI.addEventListener("click", (e) => {
-  if (e.target.classList.contains("btn-tambah-fav")) {
+  if (e.target.closest(".btn-tambah-fav")) {
     const itemRiwayat = e.target.closest(".item-riwayat");
     const idRiwayat = itemRiwayat.dataset.id;
 
@@ -749,14 +760,16 @@ listRiwayatUI.addEventListener("click", (e) => {
         return;
       }
 
-      currentUser.favorit.push({
+      currentUser.favorit.unshift({
         id: `FAV-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 1000)}`,
         jenis: transaksiTarget.jenis,
         nominal: transaksiTarget.nominal,
         lokTransaksi: transaksiTarget.bank || transaksiTarget.tempatTarik,
+        idUnikTujuan: transaksiTarget.idUnikTujuan || "",
+        tujuan: transaksiTarget.tujuan || "",
+        noPenerima: transaksiTarget.noPenerima || "",
+        namaPenerima: transaksiTarget.namaPenerima || "",
       });
-
-      console.log(currentUser.favorit);
 
       saveUsers();
       renderFavorit();
@@ -813,7 +826,6 @@ function showBeranda() {
   resetPageSectionAll();
   pageBeranda.style.display = "flex";
   btnBeranda.classList.add("active");
-  // console.log("klik");
 }
 
 function showFavorit() {
@@ -821,7 +833,6 @@ function showFavorit() {
   resetPageSectionAll();
   pageFavorit.style.display = "flex";
   btnFavorit.classList.add("active");
-  // console.log("klik");
 }
 
 function showRiwayat() {
@@ -829,7 +840,6 @@ function showRiwayat() {
   resetPageSectionAll();
   pageRiwayat.style.display = "flex";
   btnRiwayat.classList.add("active");
-  // console.log("klik");
 }
 
 function showProfil() {
@@ -837,7 +847,6 @@ function showProfil() {
   resetPageSectionAll();
   pageProfil.style.display = "flex";
   btnProfil.classList.add("active");
-  // console.log("klik");
 }
 
 function showTransfer() {
@@ -900,8 +909,6 @@ btnPindahLogin.addEventListener("click", () => {
   formDaftar.style.display = "none";
   formLogin.style.display = "flex";
 });
-
-// btnTambahFavorit.addEventListener("click", tambahFavorit);
 
 btnTambahSaldo.addEventListener("click", topUpSaldo);
 btnTarikTunai.addEventListener("click", tarikTunai);

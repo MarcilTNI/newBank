@@ -244,50 +244,70 @@
         </div>
 
         <div class="content-transfer-sama-bank content-transfer">
+          <div class="transfer-form-heading">
+            <span>Transfer internal</span>
+            <h3>Kirim ke sesama bank</h3>
+            <p>Transfer instan tanpa biaya admin.</p>
+          </div>
+          <label for="inputIdTujuan">ID unik penerima</label>
           <input
             type="text"
             name="Id-unik"
-            placeholder="Id unik tujuan"
+            placeholder="Contoh: USR-123456-789"
             id="inputIdTujuan"
           />
+          <label for="inputNominalTransferSamaBank">Nominal transfer</label>
           <input
             type="number"
             name="nominal-transfer"
-            placeholder="Nominal Transfer"
+            placeholder="Contoh: 50000"
             id="inputNominalTransferSamaBank"
           />
-          <button id="transferSamaBank">Transfer</button>
+          <button id="transferSamaBank">
+            <i class="fa-solid fa-arrow-up"></i> Lanjutkan transfer
+          </button>
         </div>
 
         <div class="content-transfer-beda-bank content-transfer">
+          <div class="transfer-form-heading">
+            <span>Transfer eksternal</span>
+            <h3>Kirim ke bank atau wallet lain</h3>
+            <p>Periksa kembali detail penerima sebelum melanjutkan.</p>
+          </div>
+          <label for="inputBankWalletTujuan">Bank atau wallet tujuan</label>
           <input
             type="text"
             name="bank/Wallet-tujuan"
-            placeholder="Bank/Wallet tujuan"
+            placeholder="Contoh: BCA atau GoPay"
             id="inputBankWalletTujuan"
           />
+          <label for="noPenerimaTransfer">Nomor rekening atau telepon</label>
           <input
             type="number"
             name="norek/notelp"
-            placeholder="No. Rek/No. Telp"
+            placeholder="Masukkan nomor tujuan"
             id="noPenerimaTransfer"
           />
+          <label for="namaPenerimaTransfer">Nama penerima</label>
           <input
             type="text"
             name="namaPenerima"
-            placeholder="Nama Penerima"
+            placeholder="Masukkan nama penerima"
             id="namaPenerimaTransfer"
           />
+          <label for="inputNominalTransferBedaBank">Nominal transfer</label>
           <input
             type="number"
             name="nominal-transfer"
-            placeholder="Nominal Transfer"
+            placeholder="Contoh: 50000"
             id="inputNominalTransferBedaBank"
           />
-          <small style="font-style: italic; font-weight: bold"
-            >Fee Rp2.500</small
+          <small class="transfer-fee"
+            ><i class="fa-solid fa-circle-info"></i> Biaya admin Rp2.500</small
           >
-          <button id="transferBedaBank">Transfer</button>
+          <button id="transferBedaBank">
+            <i class="fa-solid fa-arrow-up"></i> Lanjutkan transfer
+          </button>
         </div>
 
         <div class="page-konfirmasi-transfer-sama-bank">

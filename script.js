@@ -952,6 +952,7 @@ function showLoading(state) {
 function showBeranda() {
   resetPageContentAll();
   resetPageSectionAll();
+  resetJenisContentTransferAll()
   pageBeranda.style.display = "flex";
   btnBeranda.classList.add("active");
 }
@@ -960,6 +961,7 @@ function showBeranda() {
 function showFavorit() {
   resetPageContentAll();
   resetPageSectionAll();
+  resetJenisContentTransferAll()
   pageFavorit.style.display = "flex";
   btnFavorit.classList.add("active");
 }
@@ -968,6 +970,7 @@ function showFavorit() {
 function showRiwayat() {
   resetPageContentAll();
   resetPageSectionAll();
+  resetJenisContentTransferAll()
   pageRiwayat.style.display = "flex";
   btnRiwayat.classList.add("active");
 }
@@ -976,6 +979,7 @@ function showRiwayat() {
 function showProfil() {
   resetPageContentAll();
   resetPageSectionAll();
+  resetJenisContentTransferAll()
   pageProfil.style.display = "flex";
   btnProfil.classList.add("active");
 }

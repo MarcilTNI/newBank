@@ -264,52 +264,156 @@ ul {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  min-height: 260px;
-  width: min(88%, 360px);
-  gap: 12px;
-  padding: 20px 18px;
-  border-radius: 18px;
+  min-height: 0;
+  width: min(88%, 390px);
+  gap: 10px;
+  padding: 22px;
+  border-radius: 20px;
   background: #ffffff;
   border: 1px solid #e2e8f0;
-  box-shadow: 0 24px 45px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 24px 55px rgba(15, 23, 42, 0.22);
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: stretch;
   z-index: 999;
+}
+.form-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding-bottom: 4px;
+}
+.form-modal-eyebrow {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.form-modal-header h3 {
+  margin: 0;
+  color: var(--text-dark);
+  font-size: 1.35rem;
+}
+.btn-close-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 34px !important;
+  height: 34px !important;
+  padding: 0;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #f8fafc;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-close-modal:hover {
+  background: #fee2e2;
+  border-color: #fecaca;
+  color: #dc2626;
+}
+.form-modal-intro {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 6px 0 8px;
+  padding: 11px 12px;
+  border-radius: 12px;
+  background: #eff6ff;
+  color: #1e40af;
+}
+.form-modal-intro i {
+  font-size: 1.1rem;
+}
+.form-modal-intro p {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+.container .formTopUp label,
+.container .formTarikTunai label {
+  margin-top: 4px;
+  color: var(--text-dark);
+  font-size: 0.8rem;
+  font-weight: 700;
 }
 .container .formTopUp input,
 .container .formTarikTunai input {
-  width: 90%;
-  height: 35px;
-  padding-left: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 42px;
+  padding: 0 12px;
   outline: none;
-  border: 1px solid var(--side-bg);
+  border: 1px solid #cbd5e1;
   border-radius: 8px;
+  background: #f8fafc;
+  color: var(--text-dark);
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+.container .formTopUp input:focus,
+.container .formTarikTunai input:focus {
+  border-color: var(--accent);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 .container .formTopUp .box-btn-topUp {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 50px;
-  /* border: 1px solid red; */
-  gap: 10px;
+  width: 100%;
+  margin-top: 8px;
 }
-
+.container .formTarikTunai .box-btn-tarik {
+  display: flex;
+  width: 100%;
+  margin-top: 8px;
+}
 .container .formTopUp .box-btn-topUp button,
 .container .formTarikTunai .box-btn-tarik button {
-  width: max-content;
-  padding: 10px 15px;
-  background: var(--side-two-bg);
-  border: 2px solid gray;
+  width: 100%;
+  padding: 12px 15px;
+  background: linear-gradient(135deg, var(--main-bg), #3b82f6);
+  border: none;
   border-radius: 8px;
-  font-size: 16px;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
   transition: all 0.3s ease-out;
 }
 .container .formTopUp .box-btn-topUp button:hover,
 .container .formTarikTunai .box-btn-tarik button:hover {
-  transform: scale(0.95);
-  box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px rgba(37, 99, 235, 0.22);
+}
+.kode-tarik-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 4px;
+  padding: 12px;
+  border: 1px dashed #93c5fd;
+  border-radius: 12px;
+  background: #eff6ff;
+  text-align: center;
+}
+.kode-tarik-info span,
+.kode-tarik-info small {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+.kode-tarik-info strong {
+  color: var(--main-bg);
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
 }
 
 /* .page-content {
@@ -359,7 +463,6 @@ ul {
 .main-content-beranda .hero-section .section-top .logo img {
   width: 100%;
   height: 100%;
-  
 }
 .main-content-beranda .hero-section .section-top .user {
   margin-right: auto;

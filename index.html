@@ -77,7 +77,7 @@
         <div class="hero-section">
           <div class="section-top">
             <div class="logo">
-              <img src="logo CIL BANK (1).png" alt="logo CIL Bank">
+              <img src="logo CIL BANK (1).png" alt="logo CIL Bank" />
             </div>
             <div class="user">
               <p id="namaUser">Dummy</p>
@@ -446,60 +446,97 @@
 
       <!-- FormTopUp -->
       <div class="formTopUp" id="topUpForm">
-        <h3>Top UP</h3>
+        <div class="form-modal-header">
+          <div>
+            <span class="form-modal-eyebrow">Kelola saldo</span>
+            <h3>Top Up</h3>
+          </div>
+          <button
+            id="closeFormTopUp"
+            class="btn-close-modal"
+            aria-label="Tutup form top up"
+            onclick="
+              event.preventDefault();
+              closeFormTopUp();
+            "
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="form-modal-intro">
+          <i class="fa-solid fa-wallet"></i>
+          <p>Tambahkan saldo untuk melanjutkan berbagai transaksi.</p>
+        </div>
+        <label for="inputNominalTopUp">Nominal top up</label>
         <input
           type="number"
           name="nominal"
-          placeholder="Nominal Topup"
+          placeholder="Contoh: 100000"
           id="inputNominalTopUp"
         />
-        <input type="text" name="bank" placeholder="Bank" class="inputBank" />
+        <label for="inputBankTopUp">Sumber dana</label>
+        <input
+          type="text"
+          name="bank"
+          placeholder="Contoh: BCA atau GoPay"
+          class="inputBank"
+          id="inputBankTopUp"
+        />
         <div class="box-btn-topUp">
-          <button id="btnTambahSaldo">Tambah</button>
+          <button id="btnTambahSaldo">
+            <i class="fa-solid fa-plus"></i> Tambah saldo
+          </button>
           <!-- <button class="btnTambahFavorit">Tambah Kefavorit</button> -->
         </div>
-        <button
-          id="closeFormTopUp"
-          onclick="
-            event.preventDefault();
-            closeFormTopUp();
-          "
-        >
-          <i class="fa-solid fa-xmark"></i>
-        </button>
       </div>
 
       <!--  -->
       <div class="formTarikTunai" id="tarikTunaiForm">
-        <h3>Tarik Tunai</h3>
+        <div class="form-modal-header">
+          <div>
+            <span class="form-modal-eyebrow">Ambil uang tunai</span>
+            <h3>Tarik Tunai</h3>
+          </div>
+          <button
+            id="closeFormTarikTunai"
+            class="btn-close-modal"
+            aria-label="Tutup form tarik tunai"
+            onclick="
+              event.preventDefault();
+              closeFormTarikTunai();
+            "
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="form-modal-intro">
+          <i class="fa-solid fa-money-bill-transfer"></i>
+          <p>Masukkan nominal dan lokasi pengambilan tunai.</p>
+        </div>
+        <label for="inputNominalTarik">Nominal penarikan</label>
         <input
           type="number"
           name="nominal"
-          placeholder="Nominal Topup"
+          placeholder="Contoh: 50000"
           id="inputNominalTarik"
         />
+        <label for="inputTempatTarik">Lokasi pengambilan</label>
         <input
           type="text"
           name="tempat-tarik-tunai"
-          placeholder="Indomaret/Alfamart/dan lain-lain"
+          placeholder="Contoh: Indomaret atau Alfamart"
           id="inputTempatTarik"
         />
-        <p id="kodeTarik"></p>
-        <small style="font-weight: bold; font-style: italic"
-          >Kasih kode ini ke kasir</small
-        >
-        <div class="box-btn-tarik">
-          <button id="btnTarikTunai">Tarik</button>
+        <div class="kode-tarik-info">
+          <span>Kode transaksi</span>
+          <strong id="kodeTarik">-</strong>
+          <small>Tunjukkan kode ini kepada kasir.</small>
         </div>
-        <button
-          id="closeFormTarikTunai"
-          onclick="
-            event.preventDefault();
-            closeFormTarikTunai();
-          "
-        >
-          <i class="fa-solid fa-xmark"></i>
-        </button>
+        <div class="box-btn-tarik">
+          <button id="btnTarikTunai">
+            <i class="fa-solid fa-arrow-down"></i> Tarik tunai
+          </button>
+        </div>
       </div>
 
       <!-- Navbar-Bottom -->

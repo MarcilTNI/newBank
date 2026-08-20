@@ -505,7 +505,19 @@ ul {
 }
 .main-content-beranda .hero-section .main-content-top .saldo .saldo-mata {
   display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-width: 120px;
+  height: 30px;
+  padding: 10px 5px;
   margin-top: 10px;
+}
+.main-content-beranda .hero-section .main-content-top .saldo .saldo-mata #toggleSaldo {
+  height: 20px;
+  width: 20px;
+  background: transparent;
+  color: white;
+  border: none;
 }
 
 .main-content-beranda .hero-section .main-content-top .box-btn-kelola {

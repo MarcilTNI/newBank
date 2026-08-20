@@ -122,6 +122,8 @@ const nomorTelepon = document.querySelector("#nomorTelepon");
 const cariNomor = document.querySelector("#cariNomor");
 const outputPulsa = document.querySelectorAll(".output-pulsa");
 
+const toggleSaldo = document.querySelector('#toggleSaldo')
+
 const prefixOperators = {
   tri: ["0895", "0896", "0897", "0898", "0899"],
   indosat: ["0814", "0815", "0816", "0855", "0856", "0857"],
@@ -139,6 +141,9 @@ const namaOperator = {
 // Seluruh akun yang tersimpan dan akun yang sedang login.
 let users = [];
 let currentUser = null;
+
+// Status saldo sembunyi
+let saldoDisembunyikan = false
 
 // Timer untuk menghapus notifikasi popup secara otomatis.
 let popupTimer;
@@ -194,7 +199,8 @@ function updateUserUI() {
   if (!currentUser) return;
   namaUser.textContent = currentUser.nama;
   idUser.textContent = currentUser.id;
-  saldo.textContent = currentUser.saldo.toLocaleString("id-ID");
+
+  renderSaldo()
 
   const profileName = document.querySelector("#profileName");
   const profileId = document.querySelector("#profileId");
@@ -204,6 +210,19 @@ function updateUserUI() {
   if (profileId) profileId.textContent = currentUser.id;
   if (profileSaldo)
     profileSaldo.textContent = `Rp ${currentUser.saldo.toLocaleString("id-ID")}`;
+}
+
+// function tampilan saldo
+function renderSaldo() {
+  if(saldoDisembunyikan) {
+    saldo.textContent = '*****'
+    toggleSaldo.innerHTML = `<li class="fa-solid fa-eye-slash"></li>`
+    toggleSaldo.setAttribute('aria-label', 'Tampilkan saldo')
+  } else {
+    saldo.textContent = currentUser.saldo.toLocaleString('id-ID')
+    toggleSaldo.innerHTML = `<li class="fa-solid fa-eye"></li>`
+    toggleSaldo.setAttribute('aria-label', 'Sembunyikan saldo')
+  }
 }
 
 /** Mendaftarkan akun baru setelah memvalidasi data dan password. */
@@ -1054,6 +1073,12 @@ btnPindahLogin.addEventListener("click", () => {
   formDaftar.style.display = "none";
   formLogin.style.display = "flex";
 });
+
+// tombol sembunyikan/tampilkan saldo
+toggleSaldo.addEventListener('click', () => {
+  saldoDisembunyikan = !saldoDisembunyikan
+  renderSaldo()
+})
 
 btnTambahSaldo.addEventListener("click", topUpSaldo);
 btnTarikTunai.addEventListener("click", tarikTunai);

@@ -512,7 +512,12 @@ ul {
   padding: 10px 5px;
   margin-top: 10px;
 }
-.main-content-beranda .hero-section .main-content-top .saldo .saldo-mata #toggleSaldo {
+.main-content-beranda
+  .hero-section
+  .main-content-top
+  .saldo
+  .saldo-mata
+  #toggleSaldo {
   height: 20px;
   width: 20px;
   background: transparent;
@@ -1292,41 +1297,91 @@ ul {
   min-height: 100vh;
   align-items: center;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
+  padding-bottom: 90px;
+  background: linear-gradient(180deg, #eff6ff, #f8fafc 42%, #ffffff);
+}
+.section-content-pulsa > h2 {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 72px;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, var(--side-bg), var(--main-bg));
+  color: white;
+  font-size: 1.2rem;
 }
 .box-input-nomor-telepon {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  justify-content: center;
-  padding: 15px 25px;
-  min-height: 120px;
-  width: 85%;
-  background: gray;
-  border: 2px solid black;
-  border-radius: 8px;
+  justify-content: flex-start;
+  width: min(92%, 520px);
+  margin-top: 4px;
+  padding: 18px;
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.09);
+  gap: 8px;
+}
+.box-input-nomor-telepon label {
+  color: var(--text-dark);
+  font-size: 0.9rem;
+  font-weight: 700;
 }
 .box-input-nomor-telepon span {
-  font-size: 10px;
+  color: var(--text-muted);
+  font-size: 0.76rem;
   font-style: italic;
 }
 .box-input-nomor-telepon .box-cari-nomor {
   display: flex;
   width: 100%;
-  gap: 5px;
-  margin-top: 15px;
+  gap: 8px;
+  margin-top: 3px;
 }
 .box-input-nomor-telepon .box-cari-nomor input {
-  width: 75%;
-  height: 30px;
-  padding-left: 10px;
-  border-radius: 2px;
-  border: 1px solid black;
+  box-sizing: border-box;
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+  padding: 0 13px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #f8fafc;
+  color: var(--text-dark);
+  font-size: 0.92rem;
   outline: none;
+  transition: all 0.2s ease;
+}
+.box-input-nomor-telepon .box-cari-nomor input:focus {
+  border-color: var(--accent);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 .box-input-nomor-telepon .box-cari-nomor button {
-  width: 20%;
-  height: 30px;
+  flex-shrink: 0;
+  min-width: 88px;
+  height: 44px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--main-bg), #3b82f6);
+  color: white;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.box-input-nomor-telepon .box-cari-nomor button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px rgba(37, 99, 235, 0.22);
+}
+.box-input-nomor-telepon .box-cari-nomor button:active {
+  transform: translateY(0);
 }
 
 .section-content-pulsa .output-pulsa {

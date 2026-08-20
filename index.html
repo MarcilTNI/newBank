@@ -76,7 +76,9 @@
       <div class="main-content-beranda page-content">
         <div class="hero-section">
           <div class="section-top">
-            <h2 class="logo">LOGO</h2>
+            <div class="logo">
+              <img src="logo CIL BANK (1).png" alt="logo CIL Bank">
+            </div>
             <div class="user">
               <p id="namaUser">Dummy</p>
               <p id="idUser">id</p>
@@ -336,11 +338,102 @@
       </div>
 
       <div class="section-content-paket-data page-section">
-        <h2>Hello paket data</h2>
+        <h2>Hello Paket Data</h2>
       </div>
+
       <div class="section-content-pulsa page-section">
-        <h2>Hello pulsa</h2>
+        <h2>Isi Pulsa Semua Provider</h2>
+
+        <div class="box-input-nomor-telepon">
+          <label for="nomorTelepon">Nomor:</label>
+          <div class="box-cari-nomor">
+            <input
+              type="text"
+              inputmode="numeric"
+              placeholder="0895-1234-9087"
+              id="nomorTelepon"
+            />
+            <button id="cariNomor">Cari</button>
+          </div>
+          <span>Masukkan nomor telepon yang valid.</span>
+        </div>
+
+        <div class="output-pulsa" id="pulsa-tri">
+          <p class="nama-operator"></p>
+          <div class="pilihan-pulsa">
+            <div class="card-pulsa" data-nominal="5000" data-harga="6000">
+              <div>
+                <strong>Pulsa 5.000</strong>
+                <span>Total Rp6.000</span>
+              </div>
+              <button class="btn-beli-pulsa">Beli</button>
+            </div>
+            <div class="card-pulsa" data-nominal="10000" data-harga="11000">
+              <div>
+                <strong>Pulsa 10.000</strong>
+                <span>Total Rp11.000</span>
+              </div>
+              <button class="btn-beli-pulsa">Beli</button>
+            </div>
+            <div class="card-pulsa" data-nominal="25000" data-harga="26000">
+              <div>
+                <strong>Pulsa 25.000</strong>
+                <span>Total Rp26.000</span>
+              </div>
+              <button class="btn-beli-pulsa">Beli</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="output-pulsa" id="pulsa-indosat">
+          <p class="nama-operator"></p>
+          <div class="pilihan-pulsa">
+            <div class="card-pulsa" data-nominal="5000" data-harga="6000">
+              <div><strong>Pulsa 5.000</strong><span>Total Rp6.000</span></div>
+              <button class="btn-beli-pulsa">Beli</button>
+            </div>
+            <div class="card-pulsa" data-nominal="10000" data-harga="11000">
+              <div>
+                <strong>Pulsa 10.000</strong><span>Total Rp11.000</span>
+              </div>
+              <button class="btn-beli-pulsa">Beli</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="output-pulsa" id="pulsa-telkomsel">
+          <p class="nama-operator"></p>
+          <div class="pilihan-pulsa">
+            <div class="card-pulsa" data-nominal="5000" data-harga="7000">
+              <div><strong>Pulsa 5.000</strong><span>Total Rp7.000</span></div>
+              <button class="btn-beli-pulsa">Beli</button>
+            </div>
+            <div class="card-pulsa" data-nominal="10000" data-harga="12000">
+              <div>
+                <strong>Pulsa 10.000</strong><span>Total Rp12.000</span>
+              </div>
+              <button class="btn-beli-pulsa">Beli</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="output-pulsa" id="pulsa-xl">
+          <p class="nama-operator"></p>
+          <div class="pilihan-pulsa">
+            <div class="card-pulsa" data-nominal="5000" data-harga="6500">
+              <div><strong>Pulsa 5.000</strong><span>Total Rp6.500</span></div>
+              <button class="btn-beli-pulsa">Beli</button>
+            </div>
+            <div class="card-pulsa" data-nominal="10000" data-harga="11500">
+              <div>
+                <strong>Pulsa 10.000</strong><span>Total Rp11.500</span>
+              </div>
+              <button class="btn-beli-pulsa">Beli</button>
+            </div>
+          </div>
+        </div>
       </div>
+
       <div class="section-content-pln page-section">
         <h2>Hello pln</h2>
       </div>

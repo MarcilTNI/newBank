@@ -353,6 +353,13 @@ ul {
 }
 .main-content-beranda .hero-section .section-top .logo {
   margin-right: 5px;
+  width: 60px;
+  height: 60px;
+}
+.main-content-beranda .hero-section .section-top .logo img {
+  width: 100%;
+  height: 100%;
+  
 }
 .main-content-beranda .hero-section .section-top .user {
   margin-right: auto;
@@ -1026,6 +1033,7 @@ ul {
   display: none;
   width: 100%;
   min-height: 100vh;
+  flex-direction: column;
   align-items: center;
 }
 
@@ -1035,6 +1043,88 @@ ul {
   width: 100%;
   min-height: 100vh;
   align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.box-input-nomor-telepon {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
+  padding: 15px 25px;
+  min-height: 120px;
+  width: 85%;
+  background: gray;
+  border: 2px solid black;
+  border-radius: 8px;
+}
+.box-input-nomor-telepon span {
+  font-size: 10px;
+  font-style: italic;
+}
+.box-input-nomor-telepon .box-cari-nomor {
+  display: flex;
+  width: 100%;
+  gap: 5px;
+  margin-top: 15px;
+}
+.box-input-nomor-telepon .box-cari-nomor input {
+  width: 75%;
+  height: 30px;
+  padding-left: 10px;
+  border-radius: 2px;
+  border: 1px solid black;
+  outline: none;
+}
+.box-input-nomor-telepon .box-cari-nomor button {
+  width: 20%;
+  height: 30px;
+}
+
+.section-content-pulsa .output-pulsa {
+  display: none;
+  width: min(90%, 520px);
+  flex-direction: column;
+  gap: 10px;
+}
+.output-pulsa .nama-operator {
+  margin: 0;
+  font-weight: bold;
+  color: var(--text-dark);
+}
+.pilihan-pulsa {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+.card-pulsa {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  box-shadow: 0 5px 12px rgba(15, 23, 42, 0.08);
+}
+.card-pulsa div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.card-pulsa span {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+.btn-beli-pulsa {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 7px;
+  background: var(--main-bg);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 /* Section-content PLN */

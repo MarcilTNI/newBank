@@ -118,6 +118,23 @@ const listFavorit = document.querySelector("#listFavorit");
 
 const showTopUp = document.querySelector("#showTopUp");
 const showTarikTunai = document.querySelector("#showTarikTunai");
+const nomorTelepon = document.querySelector("#nomorTelepon");
+const cariNomor = document.querySelector("#cariNomor");
+const outputPulsa = document.querySelectorAll(".output-pulsa");
+
+const prefixOperators = {
+  tri: ["0895", "0896", "0897", "0898", "0899"],
+  indosat: ["0814", "0815", "0816", "0855", "0856", "0857"],
+  telkomsel: ["0811", "0812", "0813", "0821", "0822", "0852", "0853"],
+  xl: ["0817", "0818", "0819", "0859", "0877", "0878"],
+};
+
+const namaOperator = {
+  tri: "Tri",
+  indosat: "Indosat",
+  telkomsel: "Telkomsel",
+  xl: "XL",
+};
 
 // Seluruh akun yang tersimpan dan akun yang sedang login.
 let users = [];
@@ -827,6 +844,80 @@ function showPopup(message, type) {
   }, 2000);
 }
 
+function cariProvider() {
+  const nomor = nomorTelepon.value.trim().replace(/[\s-]/g, "")
+
+  if(!nomor) {
+    showPopup('Nomor telepon harus diisi!', 'error')
+    return
+  }
+
+  if(!/^\d+$/.test(nomor)) {
+    showPopup('Nomor telepon hanya boleh berisi angka!', 'error')
+    return
+  }
+
+  if(nomor.length < 10 || nomor.length > 13) {
+    showPopup('Panjang nomor tidak valid!', 'error')
+    return
+  }
+
+  let selectedOperator = null
+  
+  for (const operator in prefixOperators) {
+    if(prefixOperators[operator].some((prefix) => nomor.startsWith(prefix))) {
+      selectedOperator = operator
+      break
+    }
+  }
+
+  outputPulsa.forEach((output) => {
+    output.style.display = 'none'
+  })
+
+  if(!selectedOperator) {
+    showPopup('Operator dari nomor tersebut tidak dikenali!', 'error')
+    return
+  }
+
+  const outputOperator = document.querySelector(`#pulsa-${selectedOperator}`)
+  outputOperator.querySelector('.nama-operator').textContent = `Operator: ${selectedOperator}`
+  outputOperator.style.display = 'flex'
+}
+
+function beliPulsa() {
+  const cardPulsa = event.target.closest('.card-pulsa')
+  const nominal = Number(cardPulsa.dataset.nominal)
+  const harga = Number(cardPulsa.dataset.harga)
+  const operator = cardPulsa.closest('.output-pulsa').id.replace('pulsa-', '')
+
+  if(!currentUser) {
+    showPopup('Silahkan login terlebih dahulu!', 'error')
+    return
+  }
+
+  if(harga > currentUser.saldo) {
+    showPopup('Uang di saldomu kurang!', 'error')
+    return
+  }
+
+  currentUser.saldo -= harga
+  currentUser.riwayat.unshift({
+    id: `HTR-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 1000)}`,
+    jenis: 'pulsa',
+    nominal,
+    harga,
+    bank: `Pulsa ${namaOperator[operator]}`,
+    nomorTujuan: nomorTelepon.value.trim(),
+    waktu: Date.now()
+  })
+
+  updateUserUI()
+  renderRiwayat()
+  saveUsers()
+  showPopup('Pembelian pulsa berhasil', 'success')
+}
+
 /** Menampilkan atau menyembunyikan indikator loading dan menonaktifkan kontrol login. */
 function showLoading(state) {
   if (state) {
@@ -974,6 +1065,17 @@ btnPulsa.addEventListener("click", showPulsa);
 btnPLN.addEventListener("click", showPLN);
 btnTopUpGame.addEventListener("click", showTopUpGame);
 btnTransportasi.addEventListener("click", showTransportasi);
+
+cariNomor.addEventListener('click', cariProvider)
+
+outputPulsa.forEach((output) => {
+  output.addEventListener('click', (event) => {
+    if (event.target.classList.contains('btn-beli-pulsa')) {
+      beliPulsa(event)
+    }
+  })
+})
+
 
 btnTransferSamaBank.addEventListener("click", showTransferSamaBank);
 btnTransferBedaBank.addEventListener("click", showTransferBedaBank);

@@ -799,6 +799,9 @@ function beliPulsa() {
   saveUsers();
   showPopup("Pembelian pulsa berhasil", "success");
 
+  nomorTelepon.value = ''
+  showBeranda()
+
   hidePageKonfirmasiBeliPulsa();
 }
 
@@ -842,10 +845,13 @@ function renderRiwayat() {
     kuota: "Beli Kuota",
   };
 
+  const tidakBisaFavorit = ['transferMasuk', 'pulsa']
+
   currentUser.riwayat.forEach((list) => {
     const waktuDibaca = formatWaktu(list.waktu);
     const jenisLabel = labelJenis[list.jenis] || list.jenis;
     const deskripsi = list.bank || list.tempatTarik || "Transaksi";
+    const tidakFavorit = tidakBisaFavorit
 
     let tanda =
       list.jenis === "topup" || list.jenis === "transferMasuk" ? "+" : "-";
@@ -864,7 +870,7 @@ function renderRiwayat() {
         <div class="riwayat-amount">
           <span class="nominal ${warnaNominal}">${tanda} Rp ${list.nominal.toLocaleString("id-ID")}</span>
           ${
-            list.jenis === "transferMasuk"
+            tidakBisaFavorit.some((tdk) => tdk === list.jenis)
               ? ""
               : `<button class="btn-tambah-fav" title="Simpan ke favorit">
                 <i class="fa-regular fa-star"></i>

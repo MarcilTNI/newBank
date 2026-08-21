@@ -1463,6 +1463,7 @@ ul {
   width: min(90%, 520px);
   flex-direction: column;
   gap: 10px;
+  padding-bottom: 70px;
 }
 .output-pulsa .nama-operator {
   margin: 0;

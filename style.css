@@ -469,7 +469,8 @@ ul {
   font-size: 12px;
 }
 
-.confirm-beli-pulsa {
+.confirm-beli-pulsa,
+.confirm-beli-kuota {
   box-sizing: border-box;
   width: min(92%, 420px);
   max-height: calc(100vh - 48px);
@@ -490,12 +491,14 @@ ul {
   z-index: 1000;
 }
 
-.confirm-beli-pulsa > p {
+.confirm-beli-pulsa > p,
+.confirm-beli-kuota > p {
   margin: 0 0 10px;
   color: var(--text-dark);
 }
 
-.confirm-beli-pulsa > p:first-child {
+.confirm-beli-pulsa > p:first-child,
+.confirm-beli-kuota > p:first-child {
   margin-bottom: 4px;
   font-size: 1.1rem;
   font-weight: 700;
@@ -503,7 +506,10 @@ ul {
 
 .confirm-beli-pulsa > p:nth-child(2),
 .confirm-beli-pulsa > p:nth-child(3),
-.confirm-beli-pulsa > p:nth-child(4) {
+.confirm-beli-pulsa > p:nth-child(4),
+.confirm-beli-kuota > p:nth-child(2),
+.confirm-beli-kuota > p:nth-child(3),
+.confirm-beli-kuota > p:nth-child(4) {
   padding: 10px 12px;
   border-radius: 10px;
   background: #f8fafc;
@@ -511,18 +517,21 @@ ul {
   font-size: 0.86rem;
 }
 
-.confirm-beli-pulsa > p:nth-child(4) {
+.confirm-beli-pulsa > p:nth-child(4),
+.confirm-beli-kuota > p:nth-child(4) {
   color: var(--text-dark);
   font-weight: 700;
 }
 
-.confirm-beli-pulsa > p:nth-child(5) {
+.confirm-beli-pulsa > p:nth-child(5),
+.confirm-beli-kuota > p:nth-child(5) {
   margin: 2px 0 0;
   font-size: 0.78rem;
   font-weight: 700;
 }
 
-.confirm-beli-pulsa input {
+.confirm-beli-pulsa input,
+.confirm-beli-kuota input {
   box-sizing: border-box;
   height: 42px;
   padding: 0 12px;
@@ -531,12 +540,14 @@ ul {
   outline: none;
 }
 
-.confirm-beli-pulsa input:focus {
+.confirm-beli-pulsa input:focus,
+.confirm-beli-kuota input:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 
-.confirm-beli-pulsa .confirm-actions {
+.confirm-beli-pulsa .confirm-actions,
+.confirm-beli-kuota .confirm-actions {
   margin-top: 2px;
 }
 
@@ -1361,7 +1372,9 @@ ul {
   min-height: 100vh;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  gap: 16px;
+  padding-bottom: 90px;
+  background: linear-gradient(180deg, #eff6ff, #f8fafc 42%, #ffffff);
 }
 
 /* Section-content Pulsa */
@@ -1375,7 +1388,8 @@ ul {
   padding-bottom: 90px;
   background: linear-gradient(180deg, #eff6ff, #f8fafc 42%, #ffffff);
 }
-.section-content-pulsa > h2 {
+.section-content-pulsa > h2,
+.section-content-paket-data > h2 {
   box-sizing: border-box;
   width: 100%;
   min-height: 72px;
@@ -1458,6 +1472,7 @@ ul {
   transform: translateY(0);
 }
 
+.section-content-paket-data .output-paket-data,
 .section-content-pulsa .output-pulsa {
   display: none;
   width: min(90%, 520px);
@@ -1465,16 +1480,22 @@ ul {
   gap: 10px;
   padding-bottom: 70px;
 }
-.output-pulsa .nama-operator {
+
+.output-paket-data .nama-operator-data,
+.output-pulsa .nama-operator-pulsa {
   margin: 0;
   font-weight: bold;
   color: var(--text-dark);
 }
+
+.pilihan-paket,
 .pilihan-pulsa {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 12px;
 }
+
+.card-paket,
 .card-pulsa {
   display: flex;
   justify-content: space-between;
@@ -1495,7 +1516,34 @@ ul {
   color: var(--text-muted);
   font-size: 12px;
 }
-.btn-beli-pulsa {
+
+.card-paket .kotak-ukuran {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  border: 1px solid black;
+  padding: 10px;
+  font-size: 12px;
+  font-weight: bold;
+}
+.card-paket .ket-dan-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.card-paket .ket-dan-btn .desk-paket {
+  font-size: 9px;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.btn-beli-pulsa,
+.btn-beli-kuota {
   padding: 8px 12px;
   border: none;
   border-radius: 7px;

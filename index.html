@@ -360,28 +360,129 @@
       </div>
 
       <div class="section-content-paket-data page-section">
-        <h2>TBA</h2>
+        <h2>Isi Kuota</h2>
+
+        <div class="box-input-nomor-telepon">
+          <label for="nomorTeleponKuota">Nomor:</label>
+          <div class="box-cari-nomor">
+            <input
+              type="number"
+              inputmode="numeric"
+              placeholder="0895-1234-9087"
+              id="nomorTeleponKuota"
+            />
+            <button id="cariNomorKuota">Cari</button>
+          </div>
+          <span>Masukkan nomor telepon yang valid.</span>
+        </div>
+
+        <div class="output-paket-data" id="paket-tri">
+          <p class="nama-operator-data"></p>
+          <div class="pilihan-paket">
+            <div class="card-paket" data-ukuran="500MB" data-waktu="7" data-harga="5000">
+              <div class="kotak-ukuran">
+                <p>500MB</p>
+                <p>7</p>
+                <p>Hari</p>
+              </div>
+              <div class="ket-dan-btn">
+                <p class="desk-paket">Rp5.000</p>
+                <button class="btn-beli-kuota">Pilih</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="output-paket-data" id="paket-indosat">
+          <p class="nama-operator-data"></p>
+          <div class="pilihan-paket">
+            <div class="card-paket" data-ukuran="500MB" data-waktu="7" data-harga="5000">
+              <div class="kotak-ukuran">
+                <p>500MB</p>
+                <p>7</p>
+                <p>Hari</p>
+              </div>
+              <div class="ket-dan-btn">
+                <p class="desk-paket">Rp5.000</p>
+                <button class="btn-beli-kuota">Pilih</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="output-paket-data" id="paket-telkomsel">
+          <p class="nama-operator-data"></p>
+          <div class="pilihan-paket">
+            <div class="card-paket" data-ukuran="500MB" data-waktu="7" data-harga="5000">
+              <div class="kotak-ukuran">
+                <p>500MB</p>
+                <p>7</p>
+                <p>Hari</p>
+              </div>
+              <div class="ket-dan-btn">
+                <p class="desk-paket">Rp5.000</p>
+                <button class="btn-beli-kuota">Pilih</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="output-paket-data" id="paket-xl">
+          <p class="nama-operator-data"></p>
+          <div class="pilihan-paket">
+            <div class="card-paket" data-ukuran="500MB" data-waktu="7" data-harga="5000">
+              <div class="kotak-ukuran">
+                <p>500MB</p>
+                <p>7</p>
+                <p>Hari</p>
+              </div>
+              <div class="ket-dan-btn">
+                <p class="desk-paket">Rp5.000</p>
+                <button class="btn-beli-kuota">Pilih</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="confirm-beli-kuota">
+          <p>Konfirmasi Pembelian kuota</p>
+          <p id="nomor-kuota-yang-diisi"></p>
+          <p id="jumlahKuota"></p>
+          <p id="hargaKuota"></p>
+          <p id="masaAktif"></p>
+          <p>Password</p>
+          <input
+            type="password"
+            name="PasswordUser"
+            id="passwordKonfirmasiBeliKuota"
+            placeholder="Password"
+          />
+          <div class="confirm-actions">
+            <button id="btnBatalBeliKuota" class="btn-cancel-transfer">
+              Batal
+            </button>
+            <button id="konfirmasiBeliKuota">Konfirmasi</button>
+          </div>
+        </div>
+
       </div>
 
       <div class="section-content-pulsa page-section">
         <h2>Isi Pulsa Semua Operator</h2>
 
         <div class="box-input-nomor-telepon">
-          <label for="nomorTelepon">Nomor:</label>
+          <label for="nomorTeleponPulsa">Nomor:</label>
           <div class="box-cari-nomor">
             <input
               type="number"
               inputmode="numeric"
               placeholder="0895-1234-9087"
-              id="nomorTelepon"
+              id="nomorTeleponPulsa"
             />
-            <button id="cariNomor">Cari</button>
+            <button id="cariNomorPulsa">Cari</button>
           </div>
           <span>Masukkan nomor telepon yang valid.</span>
         </div>
 
         <div class="output-pulsa" id="pulsa-tri">
-          <p class="nama-operator"></p>
+          <p class="nama-operator-pulsa"></p>
           <div class="pilihan-pulsa">
             <div class="card-pulsa" data-nominal="5000" data-harga="6000">
               <div>
@@ -443,7 +544,7 @@
         </div>
 
         <div class="output-pulsa" id="pulsa-indosat">
-          <p class="nama-operator"></p>
+          <p class="nama-operator-pulsa"></p>
           <div class="pilihan-pulsa">
             <div class="card-pulsa" data-nominal="5000" data-harga="6000">
               <div><strong>Pulsa 5.000</strong><span>Total Rp6.000</span></div>
@@ -507,7 +608,7 @@
         </div>
 
         <div class="output-pulsa" id="pulsa-telkomsel">
-          <p class="nama-operator"></p>
+          <p class="nama-operator-pulsa"></p>
           <div class="pilihan-pulsa">
             <div class="card-pulsa" data-nominal="5000" data-harga="7000">
               <div><strong>Pulsa 5.000</strong><span>Total Rp7.000</span></div>
@@ -571,7 +672,7 @@
         </div>
 
         <div class="output-pulsa" id="pulsa-xl">
-          <p class="nama-operator"></p>
+          <p class="nama-operator-pulsa"></p>
           <div class="pilihan-pulsa">
             <div class="card-pulsa" data-nominal="5000" data-harga="6500">
               <div><strong>Pulsa 5.000</strong><span>Total Rp6.500</span></div>

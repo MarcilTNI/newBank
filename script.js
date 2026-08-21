@@ -754,9 +754,9 @@ function pilihPulsa(event) {
 
   selectedPulsa = { nominal, harga, operator };
 
-  nomor.textContent = `${nomorTelepon.value.trim()}`;
-  jumlahPulsa.textContent = `Rp${nominal.toLocaleString("id-ID")}`;
-  hargaTotal.textContent = `Rp${harga.toLocaleString("id-ID")}`;
+  nomor.textContent = `Operator: ${namaOperator[operator]} | Nomor tujuan: ${nomorTelepon.value.trim()}`;
+  jumlahPulsa.textContent = `Nominal pulsa: Rp${nominal.toLocaleString("id-ID")}`;
+  hargaTotal.textContent = `Total pembayaran: Rp${harga.toLocaleString("id-ID")}`;
 
   showPageKonfirmasiBeliPulsa();
 }

@@ -469,14 +469,75 @@ ul {
   font-size: 12px;
 }
 
-/* masih asal tempat */
 .confirm-beli-pulsa {
-  min-width: 160px;
-  height: 300px;
+  box-sizing: border-box;
+  width: min(92%, 420px);
+  max-height: calc(100vh - 48px);
+  padding: 24px;
   display: none;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  gap: 0;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  background: white;
+  border-radius: 20px;
+  transform: translate(-50%, -50%);
+  box-shadow:
+    0 20px 40px rgba(15, 23, 42, 0.16),
+    0 0 0 100vmax rgba(15, 23, 42, 0.45);
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.confirm-beli-pulsa > p {
+  margin: 0 0 10px;
+  color: var(--text-dark);
+}
+
+.confirm-beli-pulsa > p:first-child {
+  margin-bottom: 4px;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.confirm-beli-pulsa > p:nth-child(2),
+.confirm-beli-pulsa > p:nth-child(3),
+.confirm-beli-pulsa > p:nth-child(4) {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #f8fafc;
+  color: var(--text-muted);
+  font-size: 0.86rem;
+}
+
+.confirm-beli-pulsa > p:nth-child(4) {
+  color: var(--text-dark);
+  font-weight: 700;
+}
+
+.confirm-beli-pulsa > p:nth-child(5) {
+  margin: 2px 0 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.confirm-beli-pulsa input {
+  box-sizing: border-box;
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  outline: none;
+}
+
+.confirm-beli-pulsa input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.confirm-beli-pulsa .confirm-actions {
+  margin-top: 2px;
 }
 
 .main-content-beranda .hero-section .section-top .voucher-icon {

@@ -233,6 +233,7 @@ ul {
   position: relative;
   width: 100%;
   height: 100vh;
+  padding-bottom: 70px;
   background: var(--container-bg);
   display: none;
   flex-direction: column;
@@ -1373,8 +1374,8 @@ ul {
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  padding-bottom: 90px;
-  background: linear-gradient(180deg, #eff6ff, #f8fafc 42%, #ffffff);
+  padding-bottom: 150px;
+  background: #fffbeb;
 }
 
 /* Section-content Pulsa */
@@ -1400,6 +1401,28 @@ ul {
   background: linear-gradient(135deg, var(--side-bg), var(--main-bg));
   color: white;
   font-size: 1.2rem;
+}
+.section-content-paket-data > h2 {
+  background: #d97706;
+}
+.section-content-paket-data > .box-input-nomor-telepon {
+  border-color: #fde68a;
+}
+.section-content-paket-data
+  .box-input-nomor-telepon
+  .box-cari-nomor
+  input:focus {
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.16);
+}
+.section-content-paket-data .box-input-nomor-telepon .box-cari-nomor button {
+  background: #d97706;
+}
+.section-content-paket-data
+  .box-input-nomor-telepon
+  .box-cari-nomor
+  button:hover {
+  box-shadow: 0 8px 16px rgba(217, 119, 6, 0.24);
 }
 .box-input-nomor-telepon {
   box-sizing: border-box;
@@ -1480,6 +1503,10 @@ ul {
   gap: 10px;
   padding-bottom: 70px;
 }
+.section-content-paket-data .output-paket-data {
+  gap: 12px;
+  padding-bottom: 70px;
+}
 
 .output-paket-data .nama-operator-data,
 .output-pulsa .nama-operator-pulsa {
@@ -1487,12 +1514,21 @@ ul {
   font-weight: bold;
   color: var(--text-dark);
 }
+.output-paket-data .nama-operator-data {
+  padding: 0 2px;
+  color: #92400e;
+  font-size: 0.95rem;
+}
 
 .pilihan-paket,
 .pilihan-pulsa {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 12px;
+}
+.pilihan-paket {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
 }
 
 .card-paket,
@@ -1506,6 +1542,20 @@ ul {
   border: 1px solid var(--border-color);
   border-radius: 10px;
   box-shadow: 0 5px 12px rgba(15, 23, 42, 0.08);
+}
+.card-paket {
+  min-height: 104px;
+  padding: 16px;
+  border-color: #fde68a;
+  border-radius: 16px;
+  box-shadow: 0 8px 18px rgba(146, 64, 14, 0.08);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.card-paket:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(146, 64, 14, 0.14);
 }
 .card-pulsa div {
   display: flex;
@@ -1522,32 +1572,74 @@ ul {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 50px;
-  height: 50px;
-  border-radius: 8px;
-  border: 1px solid black;
-  padding: 10px;
+  flex-shrink: 0;
+  width: 76px;
+  height: 76px;
+  border-radius: 14px;
+  border: 1px solid #fcd34d;
+  background: #fffbeb;
+  color: #92400e;
+  padding: 8px;
   font-size: 12px;
   font-weight: bold;
 }
+.card-paket .kotak-ukuran p {
+  margin: 0;
+}
+.card-paket .kotak-ukuran p:first-child {
+  font-size: 1.05rem;
+}
+.card-paket .kotak-ukuran p:nth-child(2) {
+  margin-top: 4px;
+  font-size: 0.72rem;
+  font-weight: 500;
+}
 .card-paket .ket-dan-btn {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
   gap: 10px;
 }
 .card-paket .ket-dan-btn .desk-paket {
-  font-size: 9px;
-  font-weight: bold;
-  font-style: italic;
+  margin: 0;
+  color: var(--text-dark);
+  font-size: 0.92rem;
+  font-style: normal;
+  font-weight: 700;
+}
+.btn-beli-kuota {
+  width: 100%;
+  padding: 10px 12px;
+  background: #d97706;
+  border-radius: 9px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.btn-beli-kuota:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 7px 14px rgba(217, 119, 6, 0.22);
+}
+.btn-beli-kuota:active {
+  transform: translateY(0);
+}
+.card-paket .ket-dan-btn {
+  display: flex;
 }
 
-.btn-beli-pulsa,
-.btn-beli-kuota {
+.btn-beli-pulsa {
   padding: 8px 12px;
   border: none;
   border-radius: 7px;
   background: var(--main-bg);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+.btn-beli-kuota {
+  border: none;
   color: white;
   font-weight: bold;
   cursor: pointer;

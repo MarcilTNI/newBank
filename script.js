@@ -120,16 +120,18 @@ const showTopUp = document.querySelector("#showTopUp");
 const showTarikTunai = document.querySelector("#showTarikTunai");
 const nomorTeleponPulsa = document.querySelector("#nomorTeleponPulsa");
 const cariNomorPulsa = document.querySelector("#cariNomorPulsa");
-const cariNomorKuota = document.querySelector('#cariNomorKuota')
+const cariNomorKuota = document.querySelector("#cariNomorKuota");
 const outputPulsa = document.querySelectorAll(".output-pulsa");
 
-const outputKuota = document.querySelectorAll('.output-paket-data')
+const outputKuota = document.querySelectorAll(".output-paket-data");
 
-const nomorTeleponKuota = document.querySelector('#nomorTeleponKuota')
-const pageKonfirmasiBeliKuota = document.querySelector('.confirm-beli-kuota')
-const passwordKonfirmasiBeliKuota = document.querySelector('#passwordKonfirmasiBeliKuota')
-const btnKonfirmasiBeliKuota = document.querySelector('#konfirmasiBeliKuota')
-const btnBatalBeliKuota = document.querySelector('#btnBatalBeliKuota')
+const nomorTeleponKuota = document.querySelector("#nomorTeleponKuota");
+const pageKonfirmasiBeliKuota = document.querySelector(".confirm-beli-kuota");
+const passwordKonfirmasiBeliKuota = document.querySelector(
+  "#passwordKonfirmasiBeliKuota",
+);
+const btnKonfirmasiBeliKuota = document.querySelector("#konfirmasiBeliKuota");
+const btnBatalBeliKuota = document.querySelector("#btnBatalBeliKuota");
 
 const pageKonfirmasiBeliPulsa = document.querySelector(".confirm-beli-pulsa");
 const passwordKonfirmasiBeliPulsa = document.querySelector(
@@ -161,7 +163,7 @@ let currentUser = null;
 // Status saldo sembunyi
 let saldoDisembunyikan = false;
 let selectedPulsa = null;
-let selectedKuota = null
+let selectedKuota = null;
 
 // Timer untuk menghapus notifikasi popup secara otomatis.
 let popupTimer;
@@ -702,80 +704,83 @@ function konfirmasiTransferBedaBank() {
 }
 
 function cariProviderKuota() {
-  const nomor = nomorTeleponKuota.value.trim().replace(/[\s-]/g, '')
+  const nomor = nomorTeleponKuota.value.trim().replace(/[\s-]/g, "");
 
-  if(!nomor) {
-    showPopup('Nomor telepon harus diisi!', 'error')
-    return
+  if (!nomor) {
+    showPopup("Nomor telepon harus diisi!", "error");
+    return;
   }
 
-  if(!/^\d+$/.test(nomor)) {
-    showPopup('Nomor telepon hanya boleh berisi angka!', 'error')
-    return
+  if (!/^\d+$/.test(nomor)) {
+    showPopup("Nomor telepon hanya boleh berisi angka!", "error");
+    return;
   }
 
-  if(nomor.length < 10 || nomor.length > 13) {
-    showPopup('Panjang nomor tidak valid!', 'error')
-    return
+  if (nomor.length < 10 || nomor.length > 13) {
+    showPopup("Panjang nomor tidak valid!", "error");
+    return;
   }
 
-  let selectedOperator = null
+  let selectedOperator = null;
 
   for (const operator in prefixOperators) {
-    if(prefixOperators[operator].some((prefix) => nomor.startsWith(prefix))) {
-      selectedOperator = operator
-      break
+    if (prefixOperators[operator].some((prefix) => nomor.startsWith(prefix))) {
+      selectedOperator = operator;
+      break;
     }
   }
 
   outputKuota.forEach((output) => {
-    output.style.display = 'none'
-  })
+    output.style.display = "none";
+  });
 
-  if(!selectedOperator) {
+  if (!selectedOperator) {
     showPopup("Operator dari nomor tersebut tidak dikenali!", "error");
     return;
   }
 
-  const outputOperator = document.querySelector(`#paket-${selectedOperator}`)
-  outputOperator.querySelector(".nama-operator-data").textContent = `Operator: ${selectedOperator}`;
-  outputOperator.style.display = 'flex'
+  const outputOperator = document.querySelector(`#paket-${selectedOperator}`);
+  outputOperator.querySelector(".nama-operator-data").textContent =
+    `Operator: ${selectedOperator}`;
+  outputOperator.style.display = "flex";
 }
 
 function pilihPaket(event) {
-  const cardPaket = event.target.closest('.card-paket')
-  const harga = Number(cardPaket.dataset.harga)
-  const ukuran = cardPaket.dataset.ukuran
-  const hari = `${cardPaket.dataset.waktu} hari`
-  const operator = cardPaket.closest('.output-paket-data').id.replace('paket-', '')
+  const cardPaket = event.target.closest(".card-paket");
+  const harga = Number(cardPaket.dataset.harga);
+  const ukuran = cardPaket.dataset.ukuran;
+  const hari = `${cardPaket.dataset.waktu} hari`;
+  const operator = cardPaket
+    .closest(".output-paket-data")
+    .id.replace("paket-", "");
 
-  const nomor = document.querySelector('#nomor-kuota-yang-diisi')
-  const jumlahKuota = document.querySelector('#jumlahKuota')
-  const hargaKuota = document.querySelector('#hargaKuota')
-  const masaAktif = document.querySelector('#masaAktif')
+  const nomor = document.querySelector("#nomor-kuota-yang-diisi");
+  const jumlahKuota = document.querySelector("#jumlahKuota");
+  const hargaKuota = document.querySelector("#hargaKuota");
+  const masaAktif = document.querySelector("#masaAktif");
 
-  if(!currentUser) {
-    showPopup('Silahkan login terlebih dahulu!', 'error')
-    return
+  if (!currentUser) {
+    showPopup("Silahkan login terlebih dahulu!", "error");
+    return;
   }
 
-  if(harga > currentUser.saldo) {
-    showPopup('Uang di saldomu kurang!', 'error')
-    return
+  if (harga > currentUser.saldo) {
+    showPopup("Uang di saldomu kurang!", "error");
+    return;
   }
 
-  selectedKuota = { harga, ukuran, hari, operator }
+  selectedKuota = { harga, ukuran, hari, operator };
 
   nomor.textContent = `Operator: ${namaOperator[operator]} | Nomor tujuan: ${nomorTeleponKuota.value.trim()}`;
-  jumlahKuota.textContent = `Ukuran kuota: Rp${ukuran}`;
-  masaAktif.textContent = `Masa aktif: ${hari}`
+  jumlahKuota.textContent = `Ukuran kuota: ${ukuran}`;
+  masaAktif.textContent = `Masa aktif: ${hari}`;
   hargaKuota.textContent = `Total pembayaran: Rp${harga.toLocaleString("id-ID")}`;
 
-  showPageKonfirmasiBeliKuota()
+  showPageKonfirmasiBeliKuota();
 }
 
 function beliKuota() {
-  const password = passwordKonfirmasiBeliKuota.value.trim()
+  const password = passwordKonfirmasiBeliKuota.value.trim();
 
   if (!password) {
     showPopup("Isi password konfirmasi!", "error");
@@ -787,26 +792,26 @@ function beliKuota() {
     return;
   }
 
-  const { harga, ukuran, hari, operator } = selectedKuota
+  const { harga, ukuran, hari, operator } = selectedKuota;
 
-  currentUser.saldo -= harga
+  currentUser.saldo -= harga;
   currentUser.riwayat.unshift({
-    id: `HTR-${Date.now().toString().slice(-6)}-${Math.floor(Math.random()*1000)}`,
-    jenis: 'kuota',
+    id: `HTR-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 1000)}`,
+    jenis: "kuota",
     nominal: harga,
     bank: `Kuota-${operator}: ${ukuran}-${hari}`,
-    waktu: Date.now()
-  })
+    waktu: Date.now(),
+  });
 
-  updateUserUI()
-  saveUsers()
-  renderRiwayat()
-  showPopup('Pembelian kuota anda berhasil!', 'success')
+  updateUserUI();
+  saveUsers();
+  renderRiwayat();
+  showPopup("Pembelian kuota anda berhasil!", "success");
 
-  nomorTeleponKuota.value = ''
-  showBeranda()
+  nomorTeleponKuota.value = "";
+  showBeranda();
 
-  hidePageKonfirmasiBeliKuota()
+  hidePageKonfirmasiBeliKuota();
 }
 
 function cariProviderPulsa() {
@@ -846,7 +851,8 @@ function cariProviderPulsa() {
   }
 
   const outputOperator = document.querySelector(`#pulsa-${selectedOperator}`);
-  outputOperator.querySelector(".nama-operator-pulsa").textContent = `Operator: ${selectedOperator}`;
+  outputOperator.querySelector(".nama-operator-pulsa").textContent =
+    `Operator: ${selectedOperator}`;
   outputOperator.style.display = "flex";
 }
 
@@ -886,10 +892,10 @@ function hidePageKonfirmasiBeliPulsa() {
 }
 
 function showPageKonfirmasiBeliKuota() {
-  pageKonfirmasiBeliKuota.style.display = 'flex'
+  pageKonfirmasiBeliKuota.style.display = "flex";
 }
 function hidePageKonfirmasiBeliKuota() {
-  pageKonfirmasiBeliKuota.style.display = 'none'
+  pageKonfirmasiBeliKuota.style.display = "none";
 }
 
 function beliPulsa() {
@@ -912,7 +918,7 @@ function beliPulsa() {
     id: `HTR-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 1000)}`,
     jenis: "pulsa",
     nominal: harga,
-    bank: `Pulsa ${namaOperator[operator]} - ${nominal.toLocaleString('id-ID')}`,
+    bank: `Pulsa ${namaOperator[operator]} - ${nominal.toLocaleString("id-ID")}`,
     nomorTujuan: nomorTeleponPulsa.value.trim(),
     waktu: Date.now(),
   });
@@ -922,8 +928,8 @@ function beliPulsa() {
   saveUsers();
   showPopup("Pembelian pulsa berhasil", "success");
 
-  nomorTeleponPulsa.value = ''
-  showBeranda()
+  nomorTeleponPulsa.value = "";
+  showBeranda();
 
   hidePageKonfirmasiBeliPulsa();
 }
@@ -968,13 +974,13 @@ function renderRiwayat() {
     kuota: "Beli Kuota",
   };
 
-  const tidakBisaFavorit = ['transferMasuk', 'pulsa', 'kuota']
+  const tidakBisaFavorit = ["transferMasuk", "pulsa", "kuota"];
 
   currentUser.riwayat.forEach((list) => {
     const waktuDibaca = formatWaktu(list.waktu);
     const jenisLabel = labelJenis[list.jenis] || list.jenis;
     const deskripsi = list.bank || list.tempatTarik || "Transaksi";
-    const tidakFavorit = tidakBisaFavorit
+    const tidakFavorit = tidakBisaFavorit;
 
     let tanda =
       list.jenis === "topup" || list.jenis === "transferMasuk" ? "+" : "-";
@@ -1280,20 +1286,20 @@ outputPulsa.forEach((output) => {
   });
 });
 
-cariNomorKuota.addEventListener('click', cariProviderKuota)
+cariNomorKuota.addEventListener("click", cariProviderKuota);
 outputKuota.forEach((output) => {
-  output.addEventListener('click', (event) => {
-    if(event.target.classList.contains('btn-beli-kuota')) {
-      pilihPaket(event)
+  output.addEventListener("click", (event) => {
+    if (event.target.classList.contains("btn-beli-kuota")) {
+      pilihPaket(event);
     }
-  })
-})
+  });
+});
 
 btnKonfirmasiBeliPulsa.addEventListener("click", beliPulsa);
 btnBatalBeliPulsa.addEventListener("click", hidePageKonfirmasiBeliPulsa);
 
-btnKonfirmasiBeliKuota.addEventListener('click', beliKuota)
-btnBatalBeliKuota.addEventListener('click', hidePageKonfirmasiBeliKuota)
+btnKonfirmasiBeliKuota.addEventListener("click", beliKuota);
+btnBatalBeliKuota.addEventListener("click", hidePageKonfirmasiBeliKuota);
 
 btnTransferSamaBank.addEventListener("click", showTransferSamaBank);
 btnTransferBedaBank.addEventListener("click", showTransferBedaBank);
